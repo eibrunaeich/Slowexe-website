@@ -112,34 +112,228 @@
 <link rel="manifest" href="site.webmanifest" />
 <meta name="theme-color" content="#0A0B0D" />
 <meta name="description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
-<link rel="canonical" href="https://eduaraujogh.github.io/slowexe/" />
+<link rel="canonical" href="https://eibrunaeich.github.io/Slowexe-website/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Slowexe" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="pt_BR" />
 <meta property="og:title" content="Slowexe | Coming soon" />
 <meta property="og:description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
-<meta property="og:url" content="https://eduaraujogh.github.io/slowexe/" />
-<meta property="og:image" content="https://eduaraujogh.github.io/slowexe/assets/icons/og-image.png" />
+<meta property="og:url" content="https://eibrunaeich.github.io/Slowexe-website/" />
+<meta property="og:image" content="https://eibrunaeich.github.io/Slowexe-website/assets/icons/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Slowexe" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Slowexe | Coming soon" />
 <meta name="twitter:description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
-<meta name="twitter:image" content="https://eduaraujogh.github.io/slowexe/assets/icons/og-image.png" />
+<meta name="twitter:image" content="https://eibrunaeich.github.io/Slowexe-website/assets/icons/og-image.png" />
+<style id="header-glass">
+  /* ============ HEADER DE VIDRO ============ */
+  /* O ".ct-page header" existe porque as paginas internas ja escopavam um
+     header por classe do body, com especificidade (0,2,0). Repetir o seletor
+     aqui empata e, como este bloco e o ultimo do <head>, ele vence. */
+  header .btn-contact{background:var(--primary);color:#fff}
+  header .btn-contact:hover{background:#0A0B0D;color:#fff}
+  header .lang-toggle button.active{background:var(--primary);color:#fff}
+
+  /* ---- tema claro: para hero branco ou creme ---- */
+  header,.ct-page header{
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(20px) saturate(150%);
+    -webkit-backdrop-filter:blur(20px) saturate(150%);
+    border-bottom:1px solid rgba(10,11,13,.07);
+  }
+  header.scrolled,.ct-page header.scrolled{
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(24px) saturate(160%);
+    -webkit-backdrop-filter:blur(24px) saturate(160%);
+    border-bottom-color:rgba(10,11,13,.1);
+  }
+  header .logo{color:#0A0B0D}
+  header .nav-links a{color:#3a3f47}
+  header .nav-links a:hover{color:#0A0B0D;background:rgba(10,11,13,.06)}
+  header .lang-toggle{border-color:rgba(10,11,13,.12);background:rgba(10,11,13,.04)}
+  header .lang-toggle button{color:#6b7078}
+  header .bell{border-color:rgba(10,11,13,.12);background:rgba(10,11,13,.04)}
+  header .bell:hover{background:rgba(10,11,13,.08)}
+  header .bell svg{stroke:#3a3f47}
+  header .menu-toggle{border-color:rgba(10,11,13,.12)}
+  header .menu-toggle svg{stroke:#0A0B0D}
+  @supports not (backdrop-filter: blur(1px)){
+    header,header.scrolled,.ct-page header{background:rgba(255,255,255,.97)}
+  }
+</style>
+<style id="arrow-slide">
+  /* ============ SETA DOS BOTOES ============ */
+  /* Desliza no eixo X dentro do proprio container, nunca na diagonal.
+     A primeira seta esta no fluxo e da o tamanho; a segunda fica absoluta
+     por cima, esperando fora do recorte. */
+  .arr-wrap{
+    position:relative;display:inline-flex;flex:0 0 auto;
+    overflow:hidden;vertical-align:middle;
+  }
+  .arr-wrap>svg{transition:transform .5s cubic-bezier(.7,0,.2,1)}
+  .arr-wrap>svg:nth-child(2){position:absolute;left:0;top:0;transform:translateX(-165%)}
+  a:hover .arr-wrap>svg:nth-child(1),
+  button:hover .arr-wrap>svg:nth-child(1){transform:translateX(165%)}
+  a:hover .arr-wrap>svg:nth-child(2),
+  button:hover .arr-wrap>svg:nth-child(2){transform:translateX(0)}
+  a:focus-visible .arr-wrap>svg:nth-child(1),
+  button:focus-visible .arr-wrap>svg:nth-child(1){transform:translateX(165%)}
+  a:focus-visible .arr-wrap>svg:nth-child(2),
+  button:focus-visible .arr-wrap>svg:nth-child(2){transform:translateX(0)}
+  @media(prefers-reduced-motion:reduce){
+    .arr-wrap>svg{transition:none}
+  }
+</style>
+<style id="mobile-fixes">
+  /* ============ AJUSTES DE MOBILE ============ */
+  @media(max-width:760px){
+    /* --- respiro proporcional a tela, nao ao desktop ---
+       eram 96 a 140px por secao, somando 2.024px de vazio */
+    .about,.works,.projects,.solutions,.why,.feedback,.blog{
+      padding-top:64px;padding-bottom:64px;
+    }
+    .hero{padding-top:calc(var(--header-h) + 40px);padding-bottom:56px}
+    .cta{padding-top:64px}
+    .foot{padding-top:56px}
+
+    /* --- cards com a altura do proprio conteudo --- */
+    .sol-card{min-height:0;padding:22px 20px}
+    .why-card{padding:24px 22px}
+
+    /* --- depoimentos: MANTEM o baralho empilhado, so dimensionado ---
+       O titulo sai do sticky pra nao comer 244px de tela, e os cards
+       grudam logo abaixo do header. O deslocamento entre eles cai de 30
+       pra 10px e o giro pra 45%, senao em 390px viram uma pilha confusa. */
+    .fb-title{position:static;top:auto;margin-bottom:20px}
+    .tcard{
+      position:sticky;
+      top:calc(var(--header-h) + 12px + var(--i,0) * 10px);
+      padding:26px 22px;
+      transform:rotate(calc(var(--r,0deg) * .45));
+      box-shadow:0 18px 44px rgba(0,0,0,.16);
+    }
+
+    /* --- fitas do CTA: duas faixas, nao uma em cima da outra ---
+       As duas nasciam em top:50px e, com giro de 5 graus numa largura de
+       390px, se cobriam no meio. Agora sao duas faixas separadas, com giro
+       menor, mantendo a leitura em X do desktop. */
+    .ribbons{height:214px}
+    .ribbon{padding:14px 0}
+    .ribbon.r1{top:14px;transform:rotate(-3.2deg)}
+    .ribbon.r2{top:112px;transform:rotate(3.2deg)}
+    .ribbon-item{font-size:19px;gap:14px}
+    .ribbon-item svg{width:16px;height:16px}
+
+    /* --- alvo de toque de 44px, o minimo confortavel --- */
+    .foot-col .flink,.foot-cols a{min-height:44px;display:flex;align-items:center}
+    .foot-social a{min-width:44px;min-height:44px}
+
+    /* --- rodape em duas colunas ---
+       Eram tres colunas iguais tambem no celular, 109px cada em 375px de
+       tela: "Por que a Slowexe" saia cortado no meio da palavra. */
+    .foot-cols{grid-template-columns:repeat(2,1fr);gap:24px 20px}
+
+    /* --- texto miudo demais --- */
+    .promo-tag,.promo-tag span{font-size:12px}
+
+    /* ============ PAGINAS INTERNAS ============
+       Medido em 375x812 nas 21 paginas. O bloco acima foi calibrado nas
+       classes da home, entao nada dele alcanca .svc-, .px-, .pc-, .blog-,
+       .art- ou .leg-: essas secoes continuavam com a medida do desktop.
+       A pior era servicos.html, com 20,4 telas de rolagem, das quais 1.344px
+       eram so o padding dos 8 blocos .svc-detail. */
+
+    /* --- respiro de secao: era 84 a 124px --- */
+    .svc-menu,.svc-alltype,.svc-detail,
+    .svc-sec,.svc-cta,
+    .px-grid-wrap,
+    .pc-overview,.pc-results,.pc-quote,.pc-navwrap,
+    .blog-list,.art-related{
+      padding-top:56px;padding-bottom:56px;
+    }
+    .pc-navwrap{padding-bottom:20px}
+    .cta-inner{padding-bottom:56px}
+
+    /* --- baralho de cada servico: 682px de altura, oito vezes na pagina,
+       eram 5,4 telas so de baralho. Em 560px, que e o proprio min-height
+       do design, a carta fica 345x414, retrato, sem achatar a arte --- */
+    .svc-deck{min-height:0;height:560px}
+    .svc-d-grid{gap:28px}
+
+    /* --- topo de pagina: o header e fixo, entao o respiro conta a partir
+       dele, como ja acontece no .hero da home. Eram 120 a 158px fixos --- */
+    .svc-vhero,.svc-hero,.px-hero,.pc-hero,
+    .blog-hero,.art-hero,.leg-hero,.contact{
+      padding-top:calc(var(--header-h) + 32px);
+    }
+    .svc-vhero{padding-bottom:48px}
+    .pc-hero{padding-bottom:32px}
+    .contact{padding-bottom:56px}
+
+    /* --- alvo de toque nas internas ---
+       O .menu-toggle, que e o unico caminho de navegacao no celular,
+       renderizava com 42px. Os demais sao link de texto, de 17px de altura. */
+    .menu-toggle{min-width:44px;min-height:44px}
+    .foot-priv,.pc-all,.cw-todos,.svc-d-cta,.art-back,.leg-back{
+      min-height:44px;display:inline-flex;align-items:center;
+    }
+    .px-filter{min-height:44px}
+
+    /* --- no celular o formulario vem antes dos depoimentos ---
+       O baralho de citacoes ocupava a primeira tela inteira e empurrava o
+       formulario pra baixo da dobra, na unica pagina que existe pra captar
+       lead. No desktop as duas colunas aparecem juntas e a ordem nao pesa. */
+    .contact .grid > .fcard{order:-1}
+    .contact .grid > .qdeck{margin-top:8px}
+
+    /* --- campos do formulario de contato ---
+       E a pagina que converte, e os campos vinham com 35 a 37px. O
+       font-size de 16px ja esta certo e nao muda: abaixo disso o iOS
+       da zoom sozinho ao focar o campo. */
+    .contact .inp,.contact select{min-height:44px}
+    .contact textarea.inp{min-height:120px}
+  }
+
+  @media(max-width:430px){
+    .about,.works,.projects,.solutions,.why,.feedback,.blog{
+      padding-top:56px;padding-bottom:56px;
+    }
+    .ribbons{height:196px}
+    .ribbon.r2{top:100px}
+    .ribbon-item{font-size:17px}
+
+    /* --- o titulo da home estava saindo da tela ---
+       `.headline` e clamp(44px,8.6vw,112px): abaixo de 512px de tela o vw
+       perde pro piso de 44px, e o piso nao cabe. "Marcas que duram" mede
+       369px em 44px de fonte, contra 327px de largura util em 375. Sobrava
+       o "m" pra fora, e o titulo tem white-space:nowrap, entao nao quebrava.
+       Abaixo de 430px o tamanho volta a seguir a tela. */
+    .headline{font-size:min(44px,10vw)}
+
+    .svc-menu,.svc-alltype,.svc-detail,
+    .svc-sec,.svc-cta,
+    .px-grid-wrap,
+    .pc-overview,.pc-results,.pc-quote,
+    .blog-list,.art-related{
+      padding-top:48px;padding-bottom:48px;
+    }
+  }
+</style>
 </head>
 <body class="lang-en">
 
   <div class="cs-glow" aria-hidden="true"></div>
 
-  <header class="cs-top">
+  <div class="cs-top">
     <a href="index.html" class="logo" aria-label="Slowexe, home"><span class="mark"></span>Slowexe</a>
     <div class="lang-toggle" role="group" aria-label="Language">
       <button data-set-lang="en" class="active">EN</button>
       <button data-set-lang="pt">PT</button>
     </div>
-  </header>
+  </div>
 
   <main class="cs-main">
     <span class="cs-eyebrow" data-reveal>

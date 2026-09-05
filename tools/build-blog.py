@@ -423,9 +423,16 @@ def main():
                 break
         return i, j
 
-    ini, fim = bloco_balanceado(h, '<div class="blog-grid">')
-    h2 = h[:ini] + '\n' + novo + '\n      ' + h[fim:]
-    if '<a href="blog-' in h2:
+    # a home "coming soon" nao tem grid de blog: sem essa guarda o build
+    # inteiro parava aqui (ValueError), igual ja acontecia com o baralho
+    # do hero em build-cases.py.
+    if '<div class="blog-grid">' not in h:
+        print('AVISO: grid de blog nao encontrada em index.html')
+        h2 = None
+    else:
+        ini, fim = bloco_balanceado(h, '<div class="blog-grid">')
+        h2 = h[:ini] + '\n' + novo + '\n      ' + h[fim:]
+    if h2 and '<a href="blog-' in h2:
         if 'id="blog-home-css"' not in h2 and '.bh-cat{' not in h2:
             h2 = h2.replace('</head>',
                             '<style id="blog-home-css">\n%s</style>\n</head>' % HOME_CSS, 1)

@@ -249,7 +249,11 @@ def main():
         orig = html
 
         if not MARCA_HTML.search(html):
-            raise SystemExit('menu nao encontrado em %s' % nome)
+            # paginas sem menu de verdade (ex.: a home "coming soon", sem
+            # nav nenhuma ainda) nao tem o que reescrever aqui. check.py
+            # continua sendo quem acusa uma pagina real que perdeu o menu.
+            print('AVISO: menu nao encontrado em %s' % nome)
+            continue
         html = MARCA_HTML.sub(lambda m: html_menu(nome), html, count=1)
         if html != orig:
             trocados += 1

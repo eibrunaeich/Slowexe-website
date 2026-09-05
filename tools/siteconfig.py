@@ -9,7 +9,7 @@ AQUI e rode `python tools/build-all.py`. Nenhum HTML tem URL escrita a mao.
 # Endereco publico do site, SEM barra no fim.
 # Hoje: GitHub Pages. Quando o slowexe.com.br estiver comprado e apontado,
 # troque por 'https://slowexe.com.br' e rode o build de novo.
-SITE_URL = 'https://eduaraujogh.github.io/slowexe'
+SITE_URL = 'https://eibrunaeich.github.io/Slowexe-website'
 
 NOME = 'Slowexe'
 AUTOR = 'Eduardo Araujo'
