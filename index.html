@@ -27,6 +27,8 @@
     display:flex;align-items:center;justify-content:space-between;
     padding:28px 24px;max-width:var(--maxw);margin:0 auto;width:100%;
   }
+  .cs-logo{display:inline-flex;align-items:center}
+  .cs-logo img{height:24px;width:auto;display:block}
 
   .cs-main{
     position:relative;z-index:2;flex:1;
@@ -48,34 +50,28 @@
 
   .cs-headline{
     font-family:"Bricolage Grotesque";font-weight:800;
-    font-size:clamp(36px,6.6vw,66px);line-height:1.08;letter-spacing:-.03em;
-    margin:26px auto 0;max-width:16ch;color:var(--text);
+    font-size:clamp(32px,5.6vw,58px);line-height:1.14;letter-spacing:-.03em;
+    margin:26px auto 0;color:var(--text);
   }
 
   .cs-sub{margin:22px auto 0;max-width:46ch;color:var(--text-muted);
     font-size:clamp(15px,1.6vw,18px);line-height:1.55}
 
-  .cs-manifesto{
-    margin:36px auto 0;max-width:52ch;text-align:left;
-    padding:6px 0 6px 22px;border-left:3px solid var(--primary);
-  }
-  .cs-manifesto p{font-family:"Bricolage Grotesque";font-weight:600;
-    font-size:clamp(17px,1.9vw,21px);line-height:1.48;letter-spacing:-.01em;
-    color:#E4E6EA;margin:0}
+  .cs-tags{margin:16px auto 0;color:var(--text-muted);font-size:13.5px;letter-spacing:.02em}
 
-  .cs-notify{margin:44px auto 0;max-width:440px;width:100%}
+  .cs-notify{margin:40px auto 0;max-width:520px;width:100%}
   .cs-cta-text{color:var(--text-muted);font-size:14.5px;line-height:1.5;margin:0 0 16px}
 
-  .cs-form{display:flex;gap:10px;flex-wrap:wrap}
+  .cs-form{display:flex;gap:10px}
   .cs-input{
-    flex:1 1 220px;min-width:0;
+    flex:1 1 auto;min-width:0;
     background:rgba(255,255,255,.04);border:1.5px solid var(--border);
     border-radius:10px;padding:13px 16px;font-size:15px;color:#fff;
     font-family:"Inter",system-ui,sans-serif;
   }
   .cs-input::placeholder{color:#6b7078}
   .cs-input:focus{outline:none;border-color:var(--primary)}
-  .cs-form .btn{flex:0 0 auto;justify-content:center}
+  .cs-form .btn{flex:0 0 auto;justify-content:center;white-space:nowrap;padding-left:20px;padding-right:20px}
 
   .cs-msg{font-size:13.5px;line-height:1.5;margin:14px 0 0;padding:10px 14px;
     border-radius:10px;text-align:left}
@@ -111,14 +107,14 @@
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
 <meta name="theme-color" content="#0A0B0D" />
-<meta name="description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
+<meta name="description" content="Sharp to understand, fast to build, ready to run. This is Slowexe, a design and strategy studio launching soon. Leave your email for first access." />
 <link rel="canonical" href="https://eibrunaeich.github.io/Slowexe-website/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Slowexe" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="pt_BR" />
 <meta property="og:title" content="Slowexe | Coming soon" />
-<meta property="og:description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
+<meta property="og:description" content="Sharp to understand, fast to build, ready to run. This is Slowexe, a design and strategy studio launching soon. Leave your email for first access." />
 <meta property="og:url" content="https://eibrunaeich.github.io/Slowexe-website/" />
 <meta property="og:image" content="https://eibrunaeich.github.io/Slowexe-website/assets/icons/og-image.png" />
 <meta property="og:image:width" content="1200" />
@@ -126,7 +122,7 @@
 <meta property="og:image:alt" content="Slowexe" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Slowexe | Coming soon" />
-<meta name="twitter:description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
+<meta name="twitter:description" content="Sharp to understand, fast to build, ready to run. This is Slowexe, a design and strategy studio launching soon. Leave your email for first access." />
 <meta name="twitter:image" content="https://eibrunaeich.github.io/Slowexe-website/assets/icons/og-image.png" />
 <style id="header-glass">
   /* ============ HEADER DE VIDRO ============ */
@@ -328,7 +324,7 @@
   <div class="cs-glow" aria-hidden="true"></div>
 
   <div class="cs-top">
-    <a href="index.html" class="logo" aria-label="Slowexe, home"><span class="mark"></span>Slowexe</a>
+    <a href="index.html" class="cs-logo" aria-label="Slowexe, home"><img src="assets/logo/slowexe-logo-horizontal-branco.svg" alt="Slowexe" /></a>
     <div class="lang-toggle" role="group" aria-label="Language">
       <button data-set-lang="en" class="active">EN</button>
       <button data-set-lang="pt">PT</button>
@@ -342,21 +338,16 @@
     </span>
 
     <h1 class="cs-headline" data-reveal>
-      <span data-pt>Rápido para construir.<br>Sólido por design.</span>
-      <span data-en>Fast to build.<br>Solid by design.</span>
+      <span data-pt>Atento para entender.<br>Rápido para construir.<br>Pronto para executar.</span>
+      <span data-en>Sharp to understand.<br>Fast to build.<br>Ready to run.</span>
     </h1>
 
     <p class="cs-sub" data-reveal>
-      <span data-pt>A Slowexe é um estúdio de design e estratégia. Transformamos o seu objetivo em uma solução pronta para rodar na sua máquina, que é o seu negócio.</span>
-      <span data-en>Slowexe is a design and strategy studio. We turn your goal into a solution that's ready to run on your machine, which is your business.</span>
+      <span data-pt>Isso é Slowexe. Venha construir o seu legado com a gente.</span>
+      <span data-en>This is Slowexe. Come build your legacy with us.</span>
     </p>
 
-    <blockquote class="cs-manifesto" data-reveal>
-      <p>
-        <span data-pt>Há quem confunda rápido com pronto. Nós não. A velocidade é a IA, a profundidade é nossa. O que entregamos nunca tem cara de IA.</span>
-        <span data-en>Some confuse fast with finished. We don't. The speed is AI, the depth is ours. What we ship never looks like AI.</span>
-      </p>
-    </blockquote>
+    <p class="cs-tags" data-reveal>Branding · Web · UX · Strategy · Lead tools</p>
 
     <div class="cs-notify" data-reveal>
       <p class="cs-cta-text">
