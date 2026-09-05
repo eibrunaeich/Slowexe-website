@@ -1,1363 +1,284 @@
 <!DOCTYPE html>
-<html lang="pt" data-lang="pt">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Slowexe | Design & Technology Agency</title>
+<title>Slowexe | Coming soon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/site.css" />
 <style>
-/* ============ HERO ============ */
-  /* HERO CLARO. O header e fixo, escuro e com texto branco: sobre fundo
-     branco ele precisa de fundo solido desde o topo, senao o menu some.
-     Por isso header.no-topo abaixo. */
-  .hero{
-    position:relative;overflow:hidden;
-    background:var(--surface);
-    padding-top:calc(var(--header-h) + 64px);padding-bottom:96px;
+/* ============ COMING SOON ============ */
+/* pagina temporaria: o site cheio esta em docs/index-original-backup.html,
+   volta pro lugar quando o estudio for ao ar. Por isso nao tem header nem
+   menu mobile: nao ha pra onde navegar ainda. */
+  body{min-height:100vh;display:flex;flex-direction:column;position:relative;overflow-x:clip}
+
+  .cs-glow{
+    position:fixed;left:50%;top:-10%;transform:translateX(-50%);
+    width:900px;height:560px;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse at center, rgba(240,122,101,.32), transparent 70%);
+    filter:blur(46px);
   }
-/* 3 palavras numa linha so: sem max-width em ch, senao quebra */
-  .headline{
-    font-family:"Bricolage Grotesque";font-weight:800;
-    font-size:clamp(44px,8.6vw,112px);line-height:1;letter-spacing:-.035em;
-    margin:0 auto;max-width:none;white-space:nowrap;
-    color:var(--text-on-light);
-  }
-.subtitle{margin:26px auto 0;max-width:42ch;color:#6b7078;font-size:clamp(15px,1.6vw,18px);line-height:1.55}
-/* ============ HERO: BARALHO DE PROJETOS ============ */
-  /* Escala e deslocamento vem do JS, em 2D. Ja foi feito com perspective +
-     translateZ, que e mais elegante, mas o Safari do iOS achata
-     transform-style:preserve-3d quando um ancestral tem overflow diferente de
-     visible, e o .hero tem overflow:hidden. No celular de verdade o Z era
-     ignorado e os cards saiam todos do mesmo tamanho. */
-  .hero-deck{
+
+  .cs-top{
     position:relative;z-index:2;
-    margin:clamp(30px,4.4vw,62px) auto 0;
-    height:clamp(340px,37vw,506px);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:28px 24px;max-width:var(--maxw);margin:0 auto;width:100%;
   }
-.deck-word{
-    position:absolute;left:50%;top:50%;
-    transform:translate(-50%,-50%);
+
+  .cs-main{
+    position:relative;z-index:2;flex:1;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:40px 24px 64px;
+  }
+
+  .cs-eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:7px 16px 7px 12px;border-radius:999px;
+    border:1px solid var(--border);background:rgba(255,255,255,.04);
+    font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:#D7D9DE;
+  }
+  .cs-dot{width:7px;height:7px;border-radius:50%;background:var(--primary);flex:none;
+    animation:cs-pulse 2s ease-in-out infinite}
+  @keyframes cs-pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(240,122,101,.5)}
+    50%{opacity:.85;box-shadow:0 0 0 5px rgba(240,122,101,0)}}
+
+  .cs-headline{
     font-family:"Bricolage Grotesque";font-weight:800;
-    font-size:clamp(96px,20vw,300px);line-height:1;letter-spacing:-.05em;
-    color:rgba(10,11,13,.055);
-    white-space:nowrap;pointer-events:none;user-select:none;
+    font-size:clamp(36px,6.6vw,66px);line-height:1.08;letter-spacing:-.03em;
+    margin:26px auto 0;max-width:16ch;color:var(--text);
   }
-/* grid com place-items:center empilha todos os cards na mesma celula, ja
-     centrados nos dois eixos. Com position:absolute daria pra centralizar so
-     na horizontal: a altura vem do aspect-ratio e nao da pra usar na margem. */
-  .deck{position:absolute;inset:0;display:grid;place-items:center}
-.deck-card{
-    grid-area:1/1;
-    /* minimo 168: o baralho ocupa 2.14x a largura do card, entao com 196
-       ele daria 419px e vazaria os 375 do celular */
-    width:clamp(168px,26vw,362px);aspect-ratio:3/4;
-    transform-origin:50% 50%;
-    border-radius:22px;overflow:hidden;
-    background:#efeeec;
-    box-shadow:0 18px 46px rgba(10,11,13,.16);
-    /* .9s de movimento. O INTERVALO no JS e maior que isso de proposito:
-       sem um respiro entre as trocas o baralho vira agitacao. */
-    transition:transform .9s cubic-bezier(.22,1,.36,1),
-               opacity .9s cubic-bezier(.22,1,.36,1),
-               box-shadow .4s;
-    will-change:transform;
+
+  .cs-sub{margin:22px auto 0;max-width:46ch;color:var(--text-muted);
+    font-size:clamp(15px,1.6vw,18px);line-height:1.55}
+
+  .cs-manifesto{
+    margin:36px auto 0;max-width:52ch;text-align:left;
+    padding:6px 0 6px 22px;border-left:3px solid var(--primary);
   }
-.deck-card.is-front{box-shadow:0 30px 70px rgba(10,11,13,.26)}
-.deck-card img{width:100%;height:100%;object-fit:cover;display:block}
-/* o baralho e vitrine, nao controle: nao reage ao mouse */
-  .hero-deck{pointer-events:none}
-@media(prefers-reduced-motion:reduce){
-    .deck-card{transition:none}
+  .cs-manifesto p{font-family:"Bricolage Grotesque";font-weight:600;
+    font-size:clamp(17px,1.9vw,21px);line-height:1.48;letter-spacing:-.01em;
+    color:#E4E6EA;margin:0}
+
+  .cs-notify{margin:44px auto 0;max-width:440px;width:100%}
+  .cs-cta-text{color:var(--text-muted);font-size:14.5px;line-height:1.5;margin:0 0 16px}
+
+  .cs-form{display:flex;gap:10px;flex-wrap:wrap}
+  .cs-input{
+    flex:1 1 220px;min-width:0;
+    background:rgba(255,255,255,.04);border:1.5px solid var(--border);
+    border-radius:10px;padding:13px 16px;font-size:15px;color:#fff;
+    font-family:"Inter",system-ui,sans-serif;
   }
-/* no hero claro o ghost inverte: borda clara e texto escuro (btn-ghost-d do design system) */
-  .hero .btn-ghost{background:transparent;color:var(--text-on-light);border-color:#d8d4cd}
-.hero .btn-ghost:hover{background:transparent;color:var(--primary);border-color:var(--primary)}
-/* Legenda dentro do card, no rodape, aparecendo no hover.
-     O degrade e o fundo do proprio elemento: a capa de cada case tem cor e
-     brilho muito diferentes (a do Fense e quase branca, a do Duo e preta),
-     entao texto solto por cima nao teria contraste garantido. Com o degrade
-     chegando a 90% de preto embaixo, o branco fica em 14:1 ate sobre uma
-     imagem toda branca. */
-  .scard-foot{
-    position:absolute;left:0;right:0;bottom:0;z-index:2;
-    display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
-    padding:110px 30px 26px;flex-wrap:wrap;
-    color:#fff;
-    background:linear-gradient(to top,
-      rgba(10,11,13,.9) 0%, rgba(10,11,13,.62) 42%, rgba(10,11,13,0) 100%);
-    opacity:0;transform:translateY(12px);
-    transition:opacity .45s cubic-bezier(.22,1,.36,1),
-               transform .45s cubic-bezier(.22,1,.36,1);
+  .cs-input::placeholder{color:#6b7078}
+  .cs-input:focus{outline:none;border-color:var(--primary)}
+  .cs-form .btn{flex:0 0 auto;justify-content:center}
+
+  .cs-msg{font-size:13.5px;line-height:1.5;margin:14px 0 0;padding:10px 14px;
+    border-radius:10px;text-align:left}
+  .cs-msg.enviando{background:rgba(255,255,255,.05);color:var(--text-muted)}
+  .cs-msg.erro{background:rgba(226,103,79,.12);color:#F4917B}
+  .cs-msg[hidden]{display:none}
+
+  .cs-success{display:none;align-items:center;gap:10px;
+    padding:14px 16px;border-radius:10px;background:rgba(240,122,101,.08);
+    border:1px solid rgba(240,122,101,.28);text-align:left}
+  .cs-success.show{display:flex}
+  .cs-success svg{flex:none;width:20px;height:20px;color:var(--primary)}
+  .cs-success p{margin:0;font-size:14.5px;color:#E4E6EA;line-height:1.4}
+
+  .cs-foot{position:relative;z-index:2;text-align:center;padding:0 24px 32px;
+    color:var(--text-muted);font-size:13.5px}
+
+  [data-reveal]{opacity:0;transform:translateY(20px);
+    transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1)}
+  [data-reveal].in{opacity:1;transform:none}
+
+  @media(max-width:480px){
+    .cs-form{flex-direction:column}
+    .cs-form .btn{width:100%}
   }
-.scard-meta{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
-.scard-name{font-family:"Bricolage Grotesque";font-weight:700;font-size:clamp(22px,2.4vw,32px);
-    letter-spacing:-.02em;margin:0;color:#fff}
-.scard-date{font-size:15px;color:rgba(255,255,255,.78);font-weight:500}
-.scard-link{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;
-    text-decoration:underline;text-underline-offset:4px;color:#fff}
-/* so revela no hover onde existe hover; no toque fica sempre visivel */
-  @media(hover:hover){
-    .scard:hover .scard-foot,.scard:focus-visible .scard-foot{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .cs-dot{animation:none}
+    [data-reveal]{transition:none}
   }
-@media(hover:none){
-    .scard-foot{opacity:1;transform:none}
-  }
-@media(prefers-reduced-motion:reduce){
-    .scard-foot{transition:none}
-  }
-@media(max-width:760px){
-    .scard{top:78px}
-    .scard-media{aspect-ratio:3/2}
-    .scard-foot{padding:80px 20px 20px}
-  }
-.tcard{position:sticky;top:calc(var(--cardtop,300px) + var(--i,0)*30px);border-radius:26px;padding:38px 40px 32px;
-    margin-bottom:24px;min-height:240px;display:flex;flex-direction:column;z-index:2;
-    transform:rotate(var(--r,0deg));
-    transition:transform .45s cubic-bezier(.34,1.45,.6,1), box-shadow .4s ease;
-    box-shadow:0 26px 60px rgba(0,0,0,.14)}
-@media(max-width:600px){
-    .tcard{padding:32px 26px;min-height:0}
-    .fb-title{top:80px}
-  }
-/* hero cards: interactive polish */
-  .card-photo .cp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .6s cubic-bezier(.22,1,.36,1)}
-.card-photo:hover .cp-img{transform:scale(1.08)}
-.card-photo::after{z-index:1}
-.card-photo .photo-pill,.card-photo .avatars{z-index:2}
-.avatars img{width:34px;height:34px;border-radius:50%;border:2px solid #fff;margin-left:-12px;object-fit:cover;background:#cfcfcf;transition:transform .4s cubic-bezier(.34,1.4,.64,1),margin .4s ease}
-.avatars img:first-child{margin-left:0}
-.card-photo:hover .avatars img{margin-left:-4px}
-.card-photo:hover .avatars img:nth-child(2){transform:translateY(-6px)}
-.card-photo:hover .avatars img:nth-child(1),.card-photo:hover .avatars img:nth-child(3){transform:translateY(-3px)}
-.cards .card{will-change:transform;cursor:default}
-.card-stat .num,.card-globe .num{font-variant-numeric:tabular-nums}
-.globe-img{animation:globespin 42s linear infinite;transform-origin:50% 50%}
-.card-globe:hover .globe-img{animation-duration:14s}
-@keyframes globespin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.globe-img{animation:none}}
-/* secao some enquanto nao houver depoimento real assinado */
-.feedback[hidden]{display:none}
-/* monograma no lugar do rosto enquanto nao houver foto real de quem assina */
-.tcard-author .dp-mono{width:52px;height:52px;border-radius:50%;flex:none;display:flex;
-  align-items:center;justify-content:center;font-family:"Bricolage Grotesque",system-ui,sans-serif;
-  font-weight:700;font-size:21px;letter-spacing:-.01em;background:rgba(255,255,255,.16);color:#fff}
-.tcard.light .dp-mono{background:#F1EEE9;color:#0A0B0D}
 </style>
-<style>
-.bpost-img{display:grid;place-items:center}
-.bh-cat{font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;color:#fff;opacity:.95}
-.bpost-av{width:40px;height:40px;border-radius:50%;flex:0 0 auto;background:var(--primary);color:#fff;display:grid;place-items:center;font-family:"Bricolage Grotesque";font-weight:800;font-size:17px}
-</style>
-<style id="mnav-css">/* extraido pra assets/site.css */</style>
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
 <meta name="theme-color" content="#0A0B0D" />
-<meta name="description" content="Slowexe e um estudio de branding e design. Construimos marcas com estrategia, identidade visual e presenca digital. Veja os cases e fale com a gente." />
+<meta name="description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
 <link rel="canonical" href="https://eduaraujogh.github.io/slowexe/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Slowexe" />
-<meta property="og:locale" content="pt_BR" />
-<meta property="og:locale:alternate" content="en_US" />
-<meta property="og:title" content="Slowexe | Design &amp; Technology Agency" />
-<meta property="og:description" content="Slowexe e um estudio de branding e design. Construimos marcas com estrategia, identidade visual e presenca digital. Veja os cases e fale com a gente." />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="pt_BR" />
+<meta property="og:title" content="Slowexe | Coming soon" />
+<meta property="og:description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
 <meta property="og:url" content="https://eduaraujogh.github.io/slowexe/" />
 <meta property="og:image" content="https://eduaraujogh.github.io/slowexe/assets/icons/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Slowexe" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Slowexe | Design &amp; Technology Agency" />
-<meta name="twitter:description" content="Slowexe e um estudio de branding e design. Construimos marcas com estrategia, identidade visual e presenca digital. Veja os cases e fale com a gente." />
+<meta name="twitter:title" content="Slowexe | Coming soon" />
+<meta name="twitter:description" content="Slowexe is a design and strategy studio. The studio site is launching soon: leave your email for first access." />
 <meta name="twitter:image" content="https://eduaraujogh.github.io/slowexe/assets/icons/og-image.png" />
-<style id="header-glass">
-/* ---- tema claro: para hero branco ou creme ---- */
-  header,.ct-page header{
-    background:rgba(255,255,255,.82);
-    backdrop-filter:blur(20px) saturate(150%);
-    -webkit-backdrop-filter:blur(20px) saturate(150%);
-    border-bottom:1px solid rgba(10,11,13,.07);
-  }
-header.scrolled,.ct-page header.scrolled{
-    background:rgba(255,255,255,.9);
-    backdrop-filter:blur(24px) saturate(160%);
-    -webkit-backdrop-filter:blur(24px) saturate(160%);
-    border-bottom-color:rgba(10,11,13,.1);
-  }
-header .logo{color:#0A0B0D}
-header .nav-links a{color:#3a3f47}
-header .nav-links a:hover{color:#0A0B0D;background:rgba(10,11,13,.06)}
-header .lang-toggle{border-color:rgba(10,11,13,.12);background:rgba(10,11,13,.04)}
-header .lang-toggle button{color:#6b7078}
-header .bell{border-color:rgba(10,11,13,.12);background:rgba(10,11,13,.04)}
-header .bell:hover{background:rgba(10,11,13,.08)}
-header .bell svg{stroke:#3a3f47}
-header .menu-toggle{border-color:rgba(10,11,13,.12)}
-header .menu-toggle svg{stroke:#0A0B0D}
-@supports not (backdrop-filter: blur(1px)){
-    header,header.scrolled,.ct-page header{background:rgba(255,255,255,.97)}
-  }
-</style>
-<style id="arrow-slide">/* extraido pra assets/site.css */</style>
-<style id="foot-priv-css">/* extraido pra assets/site.css */</style>
-<style id="mobile-fixes">
-  /* ============ AJUSTES DE MOBILE ============ */
-  @media(max-width:760px){
-    /* --- respiro proporcional a tela, nao ao desktop ---
-       eram 96 a 140px por secao, somando 2.024px de vazio */
-    .about,.works,.projects,.solutions,.why,.feedback,.blog{
-      padding-top:64px;padding-bottom:64px;
-    }
-    .hero{padding-top:calc(var(--header-h) + 40px);padding-bottom:56px}
-    .cta{padding-top:64px}
-    .foot{padding-top:56px}
-
-    /* --- cards com a altura do proprio conteudo --- */
-    .sol-card{min-height:0;padding:22px 20px}
-    .why-card{padding:24px 22px}
-
-    /* --- depoimentos: MANTEM o baralho empilhado, so dimensionado ---
-       O titulo sai do sticky pra nao comer 244px de tela, e os cards
-       grudam logo abaixo do header. O deslocamento entre eles cai de 30
-       pra 10px e o giro pra 45%, senao em 390px viram uma pilha confusa. */
-    .fb-title{position:static;top:auto;margin-bottom:20px}
-    .tcard{
-      position:sticky;
-      top:calc(var(--header-h) + 12px + var(--i,0) * 10px);
-      padding:26px 22px;
-      transform:rotate(calc(var(--r,0deg) * .45));
-      box-shadow:0 18px 44px rgba(0,0,0,.16);
-    }
-
-    /* --- fitas do CTA: duas faixas, nao uma em cima da outra ---
-       As duas nasciam em top:50px e, com giro de 5 graus numa largura de
-       390px, se cobriam no meio. Agora sao duas faixas separadas, com giro
-       menor, mantendo a leitura em X do desktop. */
-    .ribbons{height:214px}
-    .ribbon{padding:14px 0}
-    .ribbon.r1{top:14px;transform:rotate(-3.2deg)}
-    .ribbon.r2{top:112px;transform:rotate(3.2deg)}
-    .ribbon-item{font-size:19px;gap:14px}
-    .ribbon-item svg{width:16px;height:16px}
-
-    /* --- alvo de toque de 44px, o minimo confortavel --- */
-    .foot-col .flink,.foot-cols a{min-height:44px;display:flex;align-items:center}
-    .foot-social a{min-width:44px;min-height:44px}
-
-    /* --- rodape em duas colunas ---
-       Eram tres colunas iguais tambem no celular, 109px cada em 375px de
-       tela: "Por que a Slowexe" saia cortado no meio da palavra. */
-    .foot-cols{grid-template-columns:repeat(2,1fr);gap:24px 20px}
-
-    /* --- texto miudo demais --- */
-    .promo-tag,.promo-tag span{font-size:12px}
-
-    /* ============ PAGINAS INTERNAS ============
-       Medido em 375x812 nas 21 paginas. O bloco acima foi calibrado nas
-       classes da home, entao nada dele alcanca .svc-, .px-, .pc-, .blog-,
-       .art- ou .leg-: essas secoes continuavam com a medida do desktop.
-       A pior era servicos.html, com 20,4 telas de rolagem, das quais 1.344px
-       eram so o padding dos 8 blocos .svc-detail. */
-
-    /* --- respiro de secao: era 84 a 124px --- */
-    .svc-menu,.svc-alltype,.svc-detail,
-    .svc-sec,.svc-cta,
-    .px-grid-wrap,
-    .pc-overview,.pc-results,.pc-quote,.pc-navwrap,
-    .blog-list,.art-related{
-      padding-top:56px;padding-bottom:56px;
-    }
-    .pc-navwrap{padding-bottom:20px}
-    .cta-inner{padding-bottom:56px}
-
-    /* --- baralho de cada servico: 682px de altura, oito vezes na pagina,
-       eram 5,4 telas so de baralho. Em 560px, que e o proprio min-height
-       do design, a carta fica 345x414, retrato, sem achatar a arte --- */
-    .svc-deck{min-height:0;height:560px}
-    .svc-d-grid{gap:28px}
-
-    /* --- topo de pagina: o header e fixo, entao o respiro conta a partir
-       dele, como ja acontece no .hero da home. Eram 120 a 158px fixos --- */
-    .svc-vhero,.svc-hero,.px-hero,.pc-hero,
-    .blog-hero,.art-hero,.leg-hero,.contact{
-      padding-top:calc(var(--header-h) + 32px);
-    }
-    .svc-vhero{padding-bottom:48px}
-    .pc-hero{padding-bottom:32px}
-    .contact{padding-bottom:56px}
-
-    /* --- alvo de toque nas internas ---
-       O .menu-toggle, que e o unico caminho de navegacao no celular,
-       renderizava com 42px. Os demais sao link de texto, de 17px de altura. */
-    .menu-toggle{min-width:44px;min-height:44px}
-    .foot-priv,.pc-all,.cw-todos,.svc-d-cta,.art-back,.leg-back{
-      min-height:44px;display:inline-flex;align-items:center;
-    }
-    .px-filter{min-height:44px}
-
-    /* --- no celular o formulario vem antes dos depoimentos ---
-       O baralho de citacoes ocupava a primeira tela inteira e empurrava o
-       formulario pra baixo da dobra, na unica pagina que existe pra captar
-       lead. No desktop as duas colunas aparecem juntas e a ordem nao pesa. */
-    .contact .grid > .fcard{order:-1}
-    .contact .grid > .qdeck{margin-top:8px}
-
-    /* --- campos do formulario de contato ---
-       E a pagina que converte, e os campos vinham com 35 a 37px. O
-       font-size de 16px ja esta certo e nao muda: abaixo disso o iOS
-       da zoom sozinho ao focar o campo. */
-    .contact .inp,.contact select{min-height:44px}
-    .contact textarea.inp{min-height:120px}
-  }
-
-  @media(max-width:430px){
-    .about,.works,.projects,.solutions,.why,.feedback,.blog{
-      padding-top:56px;padding-bottom:56px;
-    }
-    .ribbons{height:196px}
-    .ribbon.r2{top:100px}
-    .ribbon-item{font-size:17px}
-
-    /* --- o titulo da home estava saindo da tela ---
-       `.headline` e clamp(44px,8.6vw,112px): abaixo de 512px de tela o vw
-       perde pro piso de 44px, e o piso nao cabe. "Marcas que duram" mede
-       369px em 44px de fonte, contra 327px de largura util em 375. Sobrava
-       o "m" pra fora, e o titulo tem white-space:nowrap, entao nao quebrava.
-       Abaixo de 430px o tamanho volta a seguir a tela. */
-    .headline{font-size:min(44px,10vw)}
-
-    .svc-menu,.svc-alltype,.svc-detail,
-    .svc-sec,.svc-cta,
-    .px-grid-wrap,
-    .pc-overview,.pc-results,.pc-quote,
-    .blog-list,.art-related{
-      padding-top:48px;padding-bottom:48px;
-    }
-  }
-</style>
-<style id="mnav-v2">
-  /* ============ MENU DO CELULAR ============ */
-  /* Este bloco e o ultimo do <head>, entao vence o .mnav que ficou no
-     assets/site.css sem precisar de !important nem de seletor inflado. */
-  .mnav-backdrop{background:rgba(10,11,13,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-  /* O `body.mnav-open{overflow:hidden}` sozinho nao tira a barra de rolagem
-     quando quem rola e o <html>. Ficando a barra, o painel (que e fixed, e
-     por isso mede a tela inteira, barra inclusa) empurrava 14px do proprio
-     conteudo pra tras dela: o X e o botao do CTA saiam cortados. Isso so
-     acontece em navegador de mesa estreito, porque no celular a barra e
-     sobreposta, mas o conserto vale nos dois. */
-  html:has(> body.mnav-open){overflow:hidden}
-  .mnav{
-    /* left:0 em vez de width:100%. Com right:0 e largura de 100%, o painel
-       nascia 14px pra fora no navegador de mesa emulando celular, onde a
-       barra de rolagem entra na conta. Esticado entre as duas bordas, nao. */
-    left:0;width:auto;max-width:none;border-left:0;
-    padding:18px 22px 26px;
-    background:
-      radial-gradient(125% 70% at 100% 0%,rgba(240,122,101,.18) 0%,rgba(240,122,101,0) 58%),
-      #0A0B0D;
-    transition:transform .55s cubic-bezier(.22,1,.36,1);
-  }
-  .mnav-top{margin-bottom:14px}
-  .mnav-close{width:44px;height:44px}
-
-  /* --- as linhas do menu, com o numero de indice --- */
-  .mnav-body{gap:0}
-  .mnav-row{position:relative}
-  .mnav-row::after{
-    content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
-    background:var(--border);transform:scaleX(0);transform-origin:left;
-    transition:transform .6s cubic-bezier(.22,1,.36,1);
-  }
-  .mnav-rowsub::after{display:none}
-  .mnav-link{
-    display:flex;align-items:baseline;justify-content:space-between;gap:16px;
-    font-size:34px;line-height:1.1;padding:16px 0;border-bottom:0;
-    transition:color .25s,transform .35s cubic-bezier(.22,1,.36,1);
-  }
-  .mnav-txt{display:block}
-  .mnav-num{
-    font-family:Inter,system-ui,sans-serif;font-weight:500;font-size:11.5px;
-    letter-spacing:.14em;color:#6b7078;flex:0 0 auto;transition:color .25s;
-  }
-  .mnav-link:hover,.mnav-link:focus-visible,.mnav-link:active{color:var(--primary);transform:translateX(5px)}
-  .mnav-link:hover .mnav-num,.mnav-link:focus-visible .mnav-num{color:var(--primary)}
-  .mnav-row.aqui .mnav-link,.mnav-row.aqui .mnav-num{color:var(--primary)}
-  .mnav-sub{padding:12px 0 18px}
-
-  /* --- entrada em cascata: 60ms entre as linhas --- */
-  .mnav-row{opacity:0;transform:translateY(20px);
-    transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
-  .mnav.on .mnav-row{opacity:1;transform:none}
-  .mnav.on .mnav-row:nth-child(1),.mnav.on .mnav-row:nth-child(1)::after{transition-delay:.10s}
-  .mnav.on .mnav-row:nth-child(2),.mnav.on .mnav-row:nth-child(2)::after{transition-delay:.16s}
-  .mnav.on .mnav-row:nth-child(3),.mnav.on .mnav-row:nth-child(3)::after{transition-delay:.22s}
-  .mnav.on .mnav-row:nth-child(4),.mnav.on .mnav-row:nth-child(4)::after{transition-delay:.28s}
-  .mnav.on .mnav-row:nth-child(5),.mnav.on .mnav-row:nth-child(5)::after{transition-delay:.34s}
-  .mnav.on .mnav-row:nth-child(6),.mnav.on .mnav-row:nth-child(6)::after{transition-delay:.40s}
-  .mnav.on .mnav-row::after{transform:scaleX(1)}
-  .mnav-foot{opacity:0;transform:translateY(14px);
-    transition:opacity .5s cubic-bezier(.22,1,.36,1) .42s,transform .5s cubic-bezier(.22,1,.36,1) .42s}
-  .mnav.on .mnav-foot{opacity:1;transform:none}
-
-  /* --- rodape do painel: assinatura, idioma, redes, CTA e o legal --- */
-  .mnav-tag{
-    font-size:13.5px;line-height:1.5;color:var(--text-muted);
-    max-width:30ch;margin:0 0 4px;
-  }
-  .mnav-legal{
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
-    flex-wrap:wrap;font-size:12px;color:#6b7078;
-  }
-  .mnav-legal a{color:#8b9098;transition:color .25s}
-  .mnav-legal a:hover,.mnav-legal a:focus-visible{color:var(--primary)}
-  .mnav-fline{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-  .mnav-social{display:flex;gap:9px}
-  .mnav-social a{
-    width:44px;height:44px;display:grid;place-items:center;
-    border:1px solid var(--border);border-radius:12px;color:#cfd2d8;
-    transition:background .25s,border-color .25s,color .25s,transform .25s;
-  }
-  .mnav-social a:hover,.mnav-social a:focus-visible{
-    background:var(--primary);border-color:var(--primary);color:#fff;transform:translateY(-2px);
-  }
-  .mnav-social svg{width:17px;height:17px}
-  .mnav-lang button{min-height:38px}
-  .mnav-cta{padding:17px 26px}
-
-  @media(max-width:360px){
-    .mnav-link{font-size:29px;padding:14px 0}
-  }
-
-  /* Quem pediu menos movimento recebe o menu pronto, sem cascata. */
-  @media(prefers-reduced-motion:reduce){
-    .mnav,.mnav-row,.mnav-row::after,.mnav-foot{transition:none}
-    .mnav-row,.mnav-foot{opacity:1;transform:none}
-    .mnav-row::after{transform:scaleX(1)}
-  }
-</style>
 </head>
-<body class="lang-pt">
+<body class="lang-en">
 
-  <!-- ============ HEADER ============ -->
-  <header id="header">
-    <nav class="nav">
-      <a href="index.html" class="logo" aria-label="Slowexe, home"><span class="mark"></span>Slowexe</a>
+  <div class="cs-glow" aria-hidden="true"></div>
 
-      <div class="nav-links">
-        <div class="nav-item has-mega">
-          <a href="servicos.html"><span class="roll" data-pt>Serviços</span><span class="roll" data-en>Services</span>
-            <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-          </a>
-          <div class="mega">
-            <div class="mega-group">
-              <h5>Design</h5>
-              <div class="mega-items">
-                <a class="mega-link" href="servicos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18M9 9v12"/></svg>UI/UX Design</a>
-                <a class="mega-link" href="servicos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Web Design</a>
-                <a class="mega-link" href="servicos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span data-pt>Auditoria de Produto</span><span data-en>Product Audit</span></a>
-                <a class="mega-link" href="servicos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h7"/></svg>Landing Pages</a>
-                <a class="mega-link" href="servico-branding.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.4L20 9l-4.5 3.6L17 18l-5-3-5 3 1.5-5.4L4 9l5.8-.6z"/></svg>Branding</a>
-                <a class="mega-link" href="servicos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg><span data-pt>Design de App</span><span data-en>Mobile App Design</span></a>
-                <a class="mega-link" href="servico-rebranding.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a8 8 0 0 1 14-4M20 14a8 8 0 0 1-14 4"/><path d="M18 3v3h-3M6 21v-3h3"/></svg>Rebranding</a>
-                <a class="mega-link" href="servicos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/></svg>Pitch Deck</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a href="projetos.html"><span class="roll" data-pt>Projetos</span><span class="roll" data-en>Works</span></a>
-        <a href="#about"><span class="roll" data-pt>Estúdio</span><span class="roll" data-en>Studio</span></a>
-        <a href="blog.html"><span class="roll">Blog</span></a>
-      </div>
-
-      <div class="nav-right">
-        <div class="lang-toggle" role="group" aria-label="Language">
-          <button data-set-lang="pt" class="active">PT</button>
-          <button data-set-lang="en">EN</button>
-        </div>
-        <div class="notif">
-          <button class="bell" id="bellBtn" aria-label="Notificações" aria-expanded="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-            <span class="dot"></span>
-          </button>
-          <div class="notif-panel" id="notifPanel" role="dialog" aria-label="Promoção">
-            <div class="notif-head"><span class="nh-dot"></span><span data-pt>Nova notificação</span><span data-en>New notification</span></div>
-            <div class="promo">
-              <span class="promo-shine"></span>
-              <span class="promo-tag"><span data-pt>Oferta de lançamento</span><span data-en>Launch offer</span></span>
-              <h4 class="promo-title"><span data-pt>20% OFF no seu primeiro projeto</span><span data-en>20% OFF your first project</span></h4>
-              <p class="promo-sub"><span data-pt>Por tempo limitado, as vagas deste mês estão acabando.</span><span data-en>Limited time, this month's spots are almost gone.</span></p>
-              <a href="contato.html" class="promo-cta">
-                <span class="roll" data-pt>Quero meu desconto</span><span class="roll" data-en>Claim my discount</span>
-                <span class="arr-wrap"><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <a href="contato.html" class="btn btn-contact"><span class="roll" data-pt>Fale Conosco</span><span class="roll" data-en>Contact Now</span></a>
-        <button class="menu-toggle" aria-label="Menu">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        </button>
-      </div>
-    </nav>
+  <header class="cs-top">
+    <a href="index.html" class="logo" aria-label="Slowexe, home"><span class="mark"></span>Slowexe</a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button data-set-lang="en" class="active">EN</button>
+      <button data-set-lang="pt">PT</button>
+    </div>
   </header>
 
-  <!-- ============ MENU MOBILE (tools/build-menu.py) ============ -->
-  <div class="mnav-backdrop" id="mnavBackdrop" hidden></div>
-  <aside class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Menu" hidden>
-    <div class="mnav-top">
-      <a href="index.html" class="mnav-brand" aria-label="Slowexe, home"><span class="mark"></span>Slowexe</a>
-      <button class="mnav-close" id="mnavClose" type="button" aria-label="Fechar menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </div>
-    <nav class="mnav-body">
-      <div class="mnav-row">
-        <a class="mnav-link" href="servicos.html"><span class="mnav-txt"><span data-pt>Serviços</span><span data-en>Services</span></span><span class="mnav-num">01</span></a>
-      </div>
-      <div class="mnav-row mnav-rowsub">
-        <div class="mnav-sub">
-          <a href="servico-branding.html"><span data-pt>Branding</span><span data-en>Branding</span></a>
-          <a href="servico-rebranding.html"><span data-pt>Rebranding</span><span data-en>Rebranding</span></a>
-          <a href="servicos.html"><span data-pt>Ver todos os serviços</span><span data-en>See all services</span></a>
-        </div>
-      </div>
-      <div class="mnav-row">
-        <a class="mnav-link" href="projetos.html"><span class="mnav-txt"><span data-pt>Projetos</span><span data-en>Works</span></span><span class="mnav-num">02</span></a>
-      </div>
-      <div class="mnav-row">
-        <a class="mnav-link" href="index.html#about"><span class="mnav-txt"><span data-pt>Estúdio</span><span data-en>Studio</span></span><span class="mnav-num">03</span></a>
-      </div>
-      <div class="mnav-row">
-        <a class="mnav-link" href="blog.html"><span class="mnav-txt"><span data-pt>Blog</span><span data-en>Blog</span></span><span class="mnav-num">04</span></a>
-      </div>
-      <div class="mnav-row">
-        <a class="mnav-link" href="contato.html"><span class="mnav-txt"><span data-pt>Contato</span><span data-en>Contact</span></span><span class="mnav-num">05</span></a>
-      </div>
-    </nav>
-    <div class="mnav-foot">
-      <p class="mnav-tag"><span data-pt>Design e tecnologia para marcas que não param de crescer.</span><span data-en>Design and technology for brands that never stop growing.</span></p>
-      <div class="mnav-fline">
-        <div class="mnav-lang" role="group" aria-label="Language">
-          <button data-set-lang="pt" type="button" class="active">PT</button>
-          <button data-set-lang="en" type="button">EN</button>
-        </div>
-        <div class="mnav-social">
-          <a href="https://www.instagram.com/hascunho/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
-          <a href="https://www.behance.net/edu_ardoara85a" target="_blank" rel="noopener" aria-label="Behance"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.969 16.927a2.561 2.561 0 0 0 1.901.677 2.501 2.501 0 0 0 1.531-.475c.362-.235.636-.584.779-.99h2.585a5.091 5.091 0 0 1-1.9 2.896 5.292 5.292 0 0 1-3.091.88 5.839 5.839 0 0 1-2.284-.433 4.871 4.871 0 0 1-1.723-1.211 5.657 5.657 0 0 1-1.08-1.874 7.057 7.057 0 0 1-.383-2.393c-.005-.8.129-1.595.396-2.349a5.313 5.313 0 0 1 5.088-3.604 4.87 4.87 0 0 1 2.376.563c.661.362 1.231.87 1.668 1.485a6.2 6.2 0 0 1 .943 2.133c.194.821.263 1.666.205 2.508h-7.699c-.063.79.184 1.574.688 2.187ZM6.947 4.084a8.065 8.065 0 0 1 1.928.198 4.29 4.29 0 0 1 1.49.638c.418.303.748.711.958 1.182.241.579.357 1.203.341 1.83a3.506 3.506 0 0 1-.506 1.961 3.726 3.726 0 0 1-1.503 1.287 3.588 3.588 0 0 1 2.027 1.437c.464.747.697 1.615.67 2.494a4.593 4.593 0 0 1-.423 2.032 3.945 3.945 0 0 1-1.163 1.413 5.114 5.114 0 0 1-1.683.807 7.135 7.135 0 0 1-1.928.259H0V4.084h6.947Zm-.235 12.9c.308.004.616-.029.916-.099a2.18 2.18 0 0 0 .766-.332c.228-.158.411-.371.534-.619.142-.317.208-.663.191-1.009a2.08 2.08 0 0 0-.642-1.715 2.618 2.618 0 0 0-1.696-.505h-3.54v4.279h3.471Zm13.635-5.967a2.13 2.13 0 0 0-1.654-.619 2.336 2.336 0 0 0-1.163.259 2.474 2.474 0 0 0-.738.62 2.359 2.359 0 0 0-.396.792c-.074.239-.12.485-.137.734h4.769a3.239 3.239 0 0 0-.679-1.785l-.002-.001Zm-13.813-.648a2.254 2.254 0 0 0 1.423-.433c.399-.355.607-.88.56-1.413a1.916 1.916 0 0 0-.178-.891 1.298 1.298 0 0 0-.495-.533 1.851 1.851 0 0 0-.711-.274 3.966 3.966 0 0 0-.835-.073H3.241v3.631h3.293v-.014ZM21.62 5.122h-5.976v1.527h5.976V5.122Z"/></svg></a>
-        </div>
-      </div>
-      <a href="contato.html" class="mnav-cta">
-        <span data-pt>Fale Conosco</span><span data-en>Contact Now</span>
-        <span class="arr-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <div class="mnav-legal">
-        <a href="privacidade.html"><span data-pt>Política de Privacidade</span><span data-en>Privacy Policy</span></a>
-        <span>© 2026 Slowexe</span>
-      </div>
-    </div>
-  </aside>
+  <main class="cs-main">
+    <span class="cs-eyebrow" data-reveal>
+      <span class="cs-dot" aria-hidden="true"></span>
+      <span data-pt>Em breve</span><span data-en>Coming soon</span>
+    </span>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <!-- os aneis concentricos e o glow salmao sairam com o fundo claro:
-         eram brancos sobre escuro e nao existem na referencia -->
+    <h1 class="cs-headline" data-reveal>
+      <span data-pt>Rápido para construir.<br>Sólido por design.</span>
+      <span data-en>Fast to build.<br>Solid by design.</span>
+    </h1>
 
-    <div class="wrap hero-inner">
-      <h1 class="headline" data-reveal>
-        <span data-pt>Marcas que duram</span>
-        <span data-en>Brands that last</span>
-      </h1>
-    </div>
+    <p class="cs-sub" data-reveal>
+      <span data-pt>A Slowexe é um estúdio de design e estratégia. Transformamos o seu objetivo em uma solução pronta para rodar na sua máquina, que é o seu negócio.</span>
+      <span data-en>Slowexe is a design and strategy studio. We turn your goal into a solution that's ready to run on your machine, which is your business.</span>
+    </p>
 
-    <!-- baralho de projetos: conteudo gerado por tools/build-cases.py -->
-    <div class="hero-deck" id="heroDeck">
-      <span class="deck-word" aria-hidden="true">SLOWEXE</span>
-      <div class="deck" id="deckTrack">
-        <div class="deck-card">
-          <img src="assets/cases/sabores-01.webp" alt="Sabores de Curitiba, Gastronomia · Identidade Visual" loading="eager" fetchpriority="high" decoding="async">
-        </div>
-        <div class="deck-card">
-          <img src="assets/cases/duo-01.webp" alt="Duo Garage, Automotivo · Identidade Visual" loading="eager" decoding="async">
-        </div>
-        <div class="deck-card">
-          <img src="assets/cases/fense-01.webp" alt="Fense Seguradora, Seguros · Identidade Visual" loading="eager" decoding="async">
-        </div>
-        <div class="deck-card">
-          <img src="assets/cases/golden-vibes-01.webp" alt="Golden Vibes, Semijoias · Branding" loading="lazy" decoding="async">
-        </div>
-        <div class="deck-card">
-          <img src="assets/cases/bioerde-01.webp" alt="Bioerde, Agronegócio · Branding" loading="lazy" decoding="async">
-        </div>
-      </div>
-    </div>
+    <blockquote class="cs-manifesto" data-reveal>
+      <p>
+        <span data-pt>Há quem confunda rápido com pronto. Nós não. A velocidade é a IA, a profundidade é nossa. O que entregamos nunca tem cara de IA.</span>
+        <span data-en>Some confuse fast with finished. We don't. The speed is AI, the depth is ours. What we ship never looks like AI.</span>
+      </p>
+    </blockquote>
 
-    <div class="wrap hero-inner">
-      <p class="subtitle" data-reveal>
-        <span data-pt>O estúdio de branding que constrói marcas para durar, não para chamar atenção.</span>
-        <span data-en>The branding studio that builds brands to last, not to chase attention.</span>
+    <div class="cs-notify" data-reveal>
+      <p class="cs-cta-text">
+        <span data-pt>O estúdio entra no ar em breve. Quer acesso primeiro? Deixe o seu e-mail.</span>
+        <span data-en>The studio goes live soon. Want first access? Leave your email.</span>
       </p>
 
-      <div class="hero-cta" data-reveal>
-        <a href="contato.html" class="btn btn-primary">
-          <span class="roll" data-pt>Começar Agora</span><span class="roll" data-en>Get Started</span>
+      <form class="cs-form" id="csForm" novalidate>
+        <input class="cs-input" type="email" id="csEmail" name="email" required
+               placeholder="you@email.com"
+               data-en-placeholder="you@email.com" data-pt-placeholder="voce@email.com"
+               aria-label="Email">
+        <button type="submit" class="btn btn-primary">
+          <span class="roll" data-pt>Quero ser avisado</span><span class="roll" data-en>Notify me</span>
           <span class="arr-wrap"><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-        <a href="projetos.html" class="btn btn-ghost">
-          <span class="roll" data-pt>Ver Projetos</span><span class="roll" data-en>View Works</span>
-          <span class="arr-wrap"><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
+        </button>
+      </form>
+
+      <p class="cs-msg" id="csMsg" hidden></p>
+
+      <div class="cs-success" id="csSuccess">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <p><span data-pt>Prontinho. Você está na lista, avisamos assim que o estúdio for ao ar.</span><span data-en>You're in. We'll email you the moment the studio goes live.</span></p>
       </div>
     </div>
+  </main>
 
-  </section>
-
-  <!-- ============ ABOUT ============ -->
-  <section class="about" id="about">
-    <div class="wrap about-grid">
-      <div class="about-label"><span data-pt>Sobre a Slowexe</span><span data-en>About Slowexe</span></div>
-      <p class="about-text fill-block">
-        <span class="fill" data-pt>Na Slowexe, acreditamos que marketing não é sobre vender, é sobre conectar. Somos uma agência full-service de design e tecnologia, feita para ajudar marcas a crescer com propósito e precisão orientada por dados. De histórias que envolvem a campanhas que convertem, unimos estratégia e execução para transformar atenção em ação.</span>
-        <span class="fill" data-en>At Slowexe, we believe marketing isn't about selling, it's about connecting. We're a full-service design and technology agency built to help brands grow with purpose and data-driven precision. From crafting compelling stories to executing campaigns that convert, we blend strategy and craft to turn attention into action.</span>
-      </p>
-    </div>
-
-    <div class="wrap about-media">
-      <div class="about-img" data-reveal><img src="assets/cases/sabores-04.webp?grayscale" alt="" loading="lazy"></div>
-      <div class="about-img" data-reveal><img src="assets/cases/golden-vibes-06.webp?grayscale" alt="" loading="lazy"></div>
-      <div class="about-caption" data-reveal>
-        <h3><span data-pt>Mentes Ousadas<br>e Brilhantes</span><span data-en>Our Bold and<br>Brilliant Thinkers</span></h3>
-        <a href="projetos.html" class="btn btn-cta-light">
-          <span class="roll" data-pt>Saiba Mais</span><span class="roll" data-en>Learn More</span>
-          <span class="arr-wrap"><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ OUR BEST WORKS (all-type, single line, 3D intro) ============ -->
-  <section class="works" id="works">
-    <div class="wrap">
-      <h2 class="works-head" data-en><span class="ln">Our Best Works</span></h2>
-      <h2 class="works-head" data-pt><span class="ln">Nossos Trabalhos</span></h2>
-    </div>
-  </section>
-
-  <!-- ============ PROJECTS (stacking cards) ============ -->
-  <section class="projects" id="projects">
-    <div class="wrap">
-      <div class="stack"></div>
-      <div class="works2-cta">
-        <a href="projetos.html" class="btn btn-cta-light">
-          <span class="roll" data-pt>Ver todos os projetos</span><span class="roll" data-en>View all works</span>
-          <span class="arr-wrap"><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SOLUTIONS (Design services) ============ -->
-  <section class="solutions" id="solutions">
-    <div class="wrap">
-      <div class="sol-head">
-        <h2 class="sol-title">
-          <span data-pt>Soluções sob medida para o seu crescimento</span>
-          <span data-en>Solutions Tailored for Your Growth</span>
-        </h2>
-        <div class="sol-aside">
-          <p class="sol-sub">
-            <span data-pt>Impulsionamos ideias ousadas com estratégia afiada e foco em resultado.</span>
-            <span data-en>We fuel bold ideas, driving them forward with sharp strategy.</span>
-          </p>
-          <a href="contato.html" class="btn btn-primary">
-            <span class="roll" data-pt>Começar</span><span class="roll" data-en>Get Started</span>
-            <span class="arr-wrap"><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-        </div>
-      </div>
-
-      <div class="sol-cards">
-        <a href="servicos.html" class="sol-card" data-reveal>
-          <svg class="sc-ico" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          <h3 class="sc-title"><span data-pt>UI/UX Design</span><span data-en>UI/UX Design</span></h3>
-          <p class="sc-desc"><span data-pt>Interfaces intuitivas que encantam e convertem.</span><span data-en>Intuitive interfaces that delight and convert.</span></p>
-        </a>
-        <a href="servicos.html" class="sol-card" data-reveal>
-          <svg class="sc-ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>
-          <h3 class="sc-title"><span data-pt>Web Design</span><span data-en>Web Design</span></h3>
-          <p class="sc-desc"><span data-pt>Sites que combinam estética e performance.</span><span data-en>Websites that pair aesthetics with performance.</span></p>
-        </a>
-        <a href="servicos.html" class="sol-card" data-reveal>
-          <svg class="sc-ico" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
-          <h3 class="sc-title"><span data-pt>Design de App</span><span data-en>Mobile App Design</span></h3>
-          <p class="sc-desc"><span data-pt>Experiências móveis fluidas e memoráveis.</span><span data-en>Fluid, memorable mobile experiences.</span></p>
-        </a>
-        <a href="servicos.html" class="sol-card" data-reveal>
-          <svg class="sc-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg>
-          <h3 class="sc-title"><span data-pt>Landing Pages</span><span data-en>Landing Page Design</span></h3>
-          <p class="sc-desc"><span data-pt>Páginas focadas em conversão e impacto.</span><span data-en>Pages built for conversion and impact.</span></p>
-        </a>
-        <a href="servico-branding.html" class="sol-card" data-reveal>
-          <svg class="sc-ico" viewBox="0 0 24 24"><path d="M12 2l2.5 7 7 .5-5.6 4.4 2 6.9L12 17l-5.9 3.8 2-6.9L2.5 9.5l7-.5z"/></svg>
-          <h3 class="sc-title"><span data-pt>Branding</span><span data-en>Branding</span></h3>
-          <p class="sc-desc"><span data-pt>Identidades visuais que marcam presença.</span><span data-en>Visual identities that command attention.</span></p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ WHY CHOOSE US (bento) ============ -->
-  <section class="why" id="why">
-    <div class="wrap">
-      <div class="why-label">
-        <svg viewBox="0 0 24 24"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg>
-        <span data-pt>Por Que Nos Escolher?</span><span data-en>Why Choose Us</span>
-      </div>
-      <h2 class="why-head fill-block">
-        <span class="fill" data-pt>Ideias inovadoras e execução arrojada que geram resultados mensuráveis.</span>
-        <span class="fill" data-en>Innovative ideas and bold execution that drive measurable results.</span>
-      </h2>
-
-      <div class="why-grid">
-        <div class="why-card why-a" data-reveal>
-          <div class="wa-top">
-            <span class="why-ph wa-ph"><img src="assets/cases/fense-03.webp" alt="" loading="lazy" decoding="async"></span>
-            <a class="wa-arrow" href="servicos.html" aria-label="Ver mais">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
-            </a>
-          </div>
-          <div class="wa-stat">
-            <span class="wa-num">10X</span>
-            <span class="wa-numlabel"><span data-pt>Mais ágil do conceito ao lançamento</span><span data-en>Faster from concept to launch</span></span>
-          </div>
-          <p class="wa-desc"><span data-pt>Design e desenvolvimento no mesmo time, com um processo enxuto que tira a sua ideia do papel mais rápido, e sem retrabalho.</span><span data-en>Design and development in one team, with a lean process that takes your idea live faster, with no rework.</span></p>
-          <div class="wa-divider"></div>
-          <div class="wa-pills">
-            <span class="wa-pill"><span data-pt>Design e código no mesmo time</span><span data-en>Design and code in one team</span></span>
-            <span class="wa-pill"><span data-pt>Processo enxuto, sem retrabalho</span><span data-en>Lean process, no rework</span></span>
-          </div>
-        </div>
-
-        <div class="why-card why-b" data-reveal>
-          <span class="why-ph wb-ph"><img src="assets/cases/duo-05.webp" alt="" loading="lazy" decoding="async"></span>
-          <h3 class="wb-title"><span data-pt>Design e tecnologia sob o mesmo teto</span><span data-en>Design and technology under one roof</span></h3>
-          <p class="wb-desc"><span data-pt>Da identidade ao produto final, uma equipe só cuida de tudo, sem ruído entre fornecedores.</span><span data-en>From identity to final product, a single team handles it all, no noise between vendors.</span></p>
-        </div>
-
-        <div class="why-card why-c" data-reveal>
-          <div class="wc-stars">★★★★★</div>
-          <div class="wc-rate"><span data-pt>4.9/5 com base em 250 avaliações</span><span data-en>4.9/5 based on 250 reviews</span></div>
-          <div class="wc-marquee"><div class="wc-track">
-            <span class="wc-face" style="background-image:url('assets/avatars/p1.webp')"></span>
-            <span class="wc-face" style="background-image:url('assets/avatars/p2.webp')"></span>
-            <span class="wc-face" style="background-image:url('assets/avatars/p3.webp')"></span>
-            <span class="wc-face" style="background-image:url('assets/avatars/p4.webp')"></span>
-            <span class="wc-face" style="background-image:url('assets/avatars/p5.webp')"></span>
-            <span class="wc-face" style="background-image:url('assets/avatars/p6.webp')"></span>
-            <span class="wc-face" style="background-image:url('assets/avatars/p7.webp')"></span>
-          </div></div>
-          <div class="wc-logo">slowexe<b>.</b></div>
-        </div>
-
-        <div class="why-card why-d" data-reveal>
-          <div class="wd-img"><img src="assets/cases/thalles-06.webp" alt="" loading="lazy" decoding="async"></div>
-          <div class="wd-tint"></div>
-          <div class="wd-label"><span data-pt>Por perto em cada etapa</span><span data-en>With you at every step</span></div>
-          <div class="wd-bottom"><span data-pt>Parceria de verdade</span><span data-en>A real partnership</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FEEDBACK (stacking testimonials) ============ -->
-  <section class="feedback" id="feedback">
-    <div class="wrap">
-      <div class="fb-title">
-        <h2 class="fb-head"><span data-pt>Gente real, resultados reais</span><span data-en>Real People, Real Results Feedback</span></h2>
-        <p class="fb-sub"><span data-pt>Veja o que nossos clientes realmente alcançaram, relatos honestos, projeto a projeto.</span><span data-en>See what our clients are truly accomplishing with honest, project-based reviews.</span></p>
-      </div>
-
-      <div class="fb-stack">
-        <article class="tcard dark" style="--i:0;--r:-2.4deg">
-          <svg class="tq" viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h4v4c0 3-2 5-5 5v-2c1.4 0 2.5-1 2.7-2H7V7zm8 0h4v4c0 3-2 5-5 5v-2c1.4 0 2.5-1 2.7-2H15V7z"/></svg>
-          <p class="tcard-text"><span data-pt>Eles não desenharam simplesmente a marca que a gente tinha naquele momento. Ajudaram a desenhar uma marca que pudesse acompanhar o que a gente quer construir.</span><span data-en>They did not simply design the brand we had at that moment. They helped design a brand that could keep up with what we want to build.</span></p>
-          <div class="tcard-author">
-            <img src="assets/depoimentos/vinicius-franca.webp" alt="" loading="lazy" decoding="async">
-            <div><div class="tcard-name">Vinicius França</div><div class="tcard-role"><span data-pt>Fundador</span><span data-en>Founder</span></div></div>
-          </div>
-        </article>
-        <article class="tcard light" style="--i:1;--r:2deg">
-          <svg class="tq" viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h4v4c0 3-2 5-5 5v-2c1.4 0 2.5-1 2.7-2H7V7zm8 0h4v4c0 3-2 5-5 5v-2c1.4 0 2.5-1 2.7-2H15V7z"/></svg>
-          <p class="tcard-text"><span data-pt>Você não precisa desenhar um carro para falar de automóvel. E isso acabou deixando a marca muito mais sofisticada.</span><span data-en>You do not need to draw a car to talk about cars. That is what ended up making the brand far more sophisticated.</span></p>
-          <div class="tcard-author">
-            <img src="assets/depoimentos/bruno-mello.webp" alt="" loading="lazy" decoding="async">
-            <div><div class="tcard-name">Bruno Mello</div><div class="tcard-role"><span data-pt>Proprietário</span><span data-en>Owner</span></div></div>
-          </div>
-        </article>
-        <article class="tcard brand" style="--i:2;--r:-1.8deg">
-          <svg class="tq" viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h4v4c0 3-2 5-5 5v-2c1.4 0 2.5-1 2.7-2H7V7zm8 0h4v4c0 3-2 5-5 5v-2c1.4 0 2.5-1 2.7-2H15V7z"/></svg>
-          <p class="tcard-text"><span data-pt>Não foi simplesmente trocar um logo, foi dar uma personalidade mais clara para a empresa. Agora, quando a Fense fala de proteção, existe uma identidade por trás dessa mensagem.</span><span data-en>It was not simply swapping a logo, it gave the company a clearer personality. Now, when Fense talks about protection, there is an identity behind the message.</span></p>
-          <div class="tcard-author">
-            <img src="assets/depoimentos/danilo-veiga.webp" alt="" loading="lazy" decoding="async">
-            <div><div class="tcard-name">Danilo Veiga</div><div class="tcard-role"><span data-pt>Proprietário</span><span data-en>Owner</span></div></div>
-          </div>
-        </article>
-        <article class="tcard dark" style="--i:3;--r:2.4deg">
-          <svg class="tq" viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h4v4c0 3-2 5-5 5v-2c1.4 0 2.5-1 2.7-2H7V7zm8 0h4v4c0 3-2 5-5 5v-2c1.4 0 2.5-1 2.7-2H15V7z"/></svg>
-          <p class="tcard-text"><span data-pt>O verde trouxe uma sofisticação muito mais interessante. O dourado deixa de ser a identidade inteira e passa a ser um detalhe, e isso faz o produto aparecer mais.</span><span data-en>The green brought a much more interesting sophistication. Gold stops being the whole identity and becomes a detail, and that makes the product stand out more.</span></p>
-          <div class="tcard-author">
-            <img src="assets/depoimentos/rafaela-santos.webp" alt="" loading="lazy" decoding="async">
-            <div><div class="tcard-name">Rafaela Santos</div><div class="tcard-role"><span data-pt>Proprietária</span><span data-en>Owner</span></div></div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ BLOG / INSIGHTS ============ -->
-  <section class="blog" id="blog">
-    <div class="wrap">
-      <div class="blog-head">
-        <h2 class="blog-title"><span data-pt>Insights de mercado e a nossa visão</span><span data-en>Market Insights and our Strategy</span></h2>
-        <div class="blog-aside">
-          <p class="blog-sub"><span data-pt>Ideias ousadas e o pensamento por trás de cada projeto que entregamos.</span><span data-en>We fuel bold ideas, driving them forward with sharp strategy.</span></p>
-          <a href="blog.html" class="btn btn-primary">
-            <span class="roll" data-pt>Ver o Blog</span><span class="roll" data-en>View Blog</span>
-            <span class="arr-wrap"><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-        </div>
-      </div>
-
-      <div class="blog-grid">
-        <a href="blog-rebranding-2026.html" class="bpost" data-reveal>
-          <div class="bpost-img" style="background:linear-gradient(135deg,#0A0B0D 0%,#F07A65 100%)"><span class="bh-cat"><span data-pt>Branding</span><span data-en>Branding</span></span></div>
-          <span class="bpost-cat"><span data-pt>Branding</span><span data-en>Branding</span></span>
-          <h3 class="bpost-title"><span data-pt>Rebranding em 2026: quando sua marca precisa mudar de verdade</span><span data-en>Rebranding in 2026: when your brand actually needs to change</span></h3>
-          <p class="bpost-desc"><span data-pt>Amazon, Jaguar, Dunkin e Avon mudaram de identidade. Os sinais reais de que sua marca precisa de rebranding e os riscos de errar a mão.</span><span data-en>Amazon, Jaguar, Dunkin and Avon all changed identity. The real signs your brand needs a rebrand, total versus partial, and the risks of getting it wrong.</span></p>
-          <div class="bpost-author">
-            <span class="bpost-av" aria-hidden="true">E</span>
-            <div><div class="bpost-name">Eduardo Araujo</div><div class="bpost-date"><span data-pt>20 jul 2026</span><span data-en>jul 20, 2026</span></div></div>
-          </div>
-        </a>
-        <a href="blog-algoritmos-ia-marcas.html" class="bpost" data-reveal>
-          <div class="bpost-img" style="background:linear-gradient(135deg,#15171B 0%,#E2674F 100%)"><span class="bh-cat"><span data-pt>Estratégia</span><span data-en>Strategy</span></span></div>
-          <span class="bpost-cat"><span data-pt>Estratégia</span><span data-en>Strategy</span></span>
-          <h3 class="bpost-title"><span data-pt>Do algoritmo à IA: como as marcas são encontradas em 2026</span><span data-en>From algorithm to AI: how brands get found in 2026</span></h3>
-          <p class="bpost-desc"><span data-pt>O grafo social morreu e o grafo de interesse tomou o lugar. O que mudou nos algoritmos e por que storytelling virou requisito técnico.</span><span data-en>The social graph is dead and the interest graph took over. What changed in the algorithms, what Generative Engine Optimization is, and why storytelling became a technical requirement.</span></p>
-          <div class="bpost-author">
-            <span class="bpost-av" aria-hidden="true">E</span>
-            <div><div class="bpost-name">Eduardo Araujo</div><div class="bpost-date"><span data-pt>6 jul 2026</span><span data-en>jul 6, 2026</span></div></div>
-          </div>
-        </a>
-        <a href="blog-la28-superbloom.html" class="bpost" data-reveal>
-          <div class="bpost-img" style="background:linear-gradient(135deg,#0A0B0D 0%,#F07A65 100%)"><span class="bh-cat"><span data-pt>Design</span><span data-en>Design</span></span></div>
-          <span class="bpost-cat"><span data-pt>Design</span><span data-en>Design</span></span>
-          <h3 class="bpost-title"><span data-pt>LA28: o Superbloom e a identidade que muda de forma</span><span data-en>LA28: the Superbloom and an identity that changes shape</span></h3>
-          <p class="bpost-desc"><span data-pt>Los Angeles revelou o Look of the Games em março de 2026. Treze padrões inspirados no superflorescimento da Califórnia, tipografia própria e um "A" que nunca é o mesmo.</span><span data-en>Los Angeles revealed the Look of the Games in March 2026. Thirteen patterns inspired by the California superbloom, custom type and an "A" that is never the same.</span></p>
-          <div class="bpost-author">
-            <span class="bpost-av" aria-hidden="true">E</span>
-            <div><div class="bpost-name">Eduardo Araujo</div><div class="bpost-date"><span data-pt>15 jun 2026</span><span data-en>jun 15, 2026</span></div></div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FINAL CTA ============ -->
-  <section class="cta" id="contact">
-    <div class="wrap cta-inner">
-      <span class="cta-label"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg><span data-pt>Pronto pra começar?</span><span data-en>Ready to start?</span></span>
-      <h2 class="cta-head"><span data-pt>Vamos tirar a sua ideia do papel</span><span data-en>Let's bring your idea to life</span></h2>
-      <a href="contato.html" class="btn btn-primary">
-        <span class="roll" data-pt>Começar um projeto</span><span class="roll" data-en>Start a project</span>
-        <span class="arr-wrap"><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-    </div>
-    <div class="ribbons">
-      <a href="contato.html" class="ribbon r1"><div class="ribbon-track">
-        <span class="ribbon-item"><span data-pt>Vamos Começar</span><span data-en>Let's Get Started</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg></span>
-        <span class="ribbon-item"><span data-pt>Vamos Começar</span><span data-en>Let's Get Started</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg></span>
-        <span class="ribbon-item"><span data-pt>Vamos Começar</span><span data-en>Let's Get Started</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg></span>
-        <span class="ribbon-item"><span data-pt>Vamos Começar</span><span data-en>Let's Get Started</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg></span>
-      </div></a>
-      <a href="contato.html" class="ribbon r2"><div class="ribbon-track">
-        <span class="ribbon-item"><span data-pt>Design • Tecnologia</span><span data-en>Design • Technology</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg></span>
-        <span class="ribbon-item"><span data-pt>Design • Tecnologia</span><span data-en>Design • Technology</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg></span>
-        <span class="ribbon-item"><span data-pt>Design • Tecnologia</span><span data-en>Design • Technology</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg></span>
-        <span class="ribbon-item"><span data-pt>Design • Tecnologia</span><span data-en>Design • Technology</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0z"/></svg></span>
-      </div></a>
-    </div>
-  </section>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="foot">
-    <div class="wrap">
-      <div class="foot-top">
-        <div class="foot-brand">
-          <a href="index.html" class="logo" aria-label="Slowexe, home"><span class="mark"></span>Slowexe</a>
-          <p class="foot-tag"><span data-pt>Design e tecnologia para marcas que não param de crescer.</span><span data-en>Design and technology for brands that never stop growing.</span></p>
-          <div class="foot-social">
-            <a href="https://www.instagram.com/hascunho/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
-            <a href="https://www.behance.net/edu_ardoara85a" target="_blank" rel="noopener" aria-label="Behance"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.969 16.927a2.561 2.561 0 0 0 1.901.677 2.501 2.501 0 0 0 1.531-.475c.362-.235.636-.584.779-.99h2.585a5.091 5.091 0 0 1-1.9 2.896 5.292 5.292 0 0 1-3.091.88 5.839 5.839 0 0 1-2.284-.433 4.871 4.871 0 0 1-1.723-1.211 5.657 5.657 0 0 1-1.08-1.874 7.057 7.057 0 0 1-.383-2.393c-.005-.8.129-1.595.396-2.349a5.313 5.313 0 0 1 5.088-3.604 4.87 4.87 0 0 1 2.376.563c.661.362 1.231.87 1.668 1.485a6.2 6.2 0 0 1 .943 2.133c.194.821.263 1.666.205 2.508h-7.699c-.063.79.184 1.574.688 2.187ZM6.947 4.084a8.065 8.065 0 0 1 1.928.198 4.29 4.29 0 0 1 1.49.638c.418.303.748.711.958 1.182.241.579.357 1.203.341 1.83a3.506 3.506 0 0 1-.506 1.961 3.726 3.726 0 0 1-1.503 1.287 3.588 3.588 0 0 1 2.027 1.437c.464.747.697 1.615.67 2.494a4.593 4.593 0 0 1-.423 2.032 3.945 3.945 0 0 1-1.163 1.413 5.114 5.114 0 0 1-1.683.807 7.135 7.135 0 0 1-1.928.259H0V4.084h6.947Zm-.235 12.9c.308.004.616-.029.916-.099a2.18 2.18 0 0 0 .766-.332c.228-.158.411-.371.534-.619.142-.317.208-.663.191-1.009a2.08 2.08 0 0 0-.642-1.715 2.618 2.618 0 0 0-1.696-.505h-3.54v4.279h3.471Zm13.635-5.967a2.13 2.13 0 0 0-1.654-.619 2.336 2.336 0 0 0-1.163.259 2.474 2.474 0 0 0-.738.62 2.359 2.359 0 0 0-.396.792c-.074.239-.12.485-.137.734h4.769a3.239 3.239 0 0 0-.679-1.785l-.002-.001Zm-13.813-.648a2.254 2.254 0 0 0 1.423-.433c.399-.355.607-.88.56-1.413a1.916 1.916 0 0 0-.178-.891 1.298 1.298 0 0 0-.495-.533 1.851 1.851 0 0 0-.711-.274 3.966 3.966 0 0 0-.835-.073H3.241v3.631h3.293v-.014ZM21.62 5.122h-5.976v1.527h5.976V5.122Z"/></svg></a>
-          </div>
-        </div>
-        <div class="foot-cols">
-          <div class="foot-col">
-            <h4><span data-pt>Serviços</span><span data-en>Services</span></h4>
-            <a href="servicos.html" class="flink"><span data-pt>UI/UX Design</span><span data-en>UI/UX Design</span></a>
-            <a href="servicos.html" class="flink"><span data-pt>Web Design</span><span data-en>Web Design</span></a>
-            <a href="servicos.html" class="flink"><span data-pt>Design de App</span><span data-en>Mobile App</span></a>
-            <a href="servicos.html" class="flink"><span data-pt>Landing Pages</span><span data-en>Landing Pages</span></a>
-            <a href="servico-branding.html" class="flink"><span data-pt>Branding</span><span data-en>Branding</span></a>
-          </div>
-          <div class="foot-col">
-            <h4><span data-pt>Empresa</span><span data-en>Company</span></h4>
-            <a href="#about" class="flink"><span data-pt>Sobre</span><span data-en>About</span></a>
-            <a href="projetos.html" class="flink"><span data-pt>Projetos</span><span data-en>Works</span></a>
-            <a href="blog.html" class="flink"><span>Blog</span></a>
-            <a href="contato.html" class="flink"><span data-pt>Contato</span><span data-en>Contact</span></a>
-          </div>
-          <div class="foot-col">
-            <h4><span data-pt>Recursos</span><span data-en>Resources</span></h4>
-            <a href="#why" class="flink"><span data-pt>Por que a Slowexe</span><span data-en>Why Slowexe</span></a>
-            <a href="#feedback" class="flink"><span data-pt>Avaliações</span><span data-en>Reviews</span></a>
-            <a href="#solutions" class="flink"><span data-pt>Soluções</span><span data-en>Solutions</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="foot-bottom">
-          <a class="foot-priv" href="privacidade.html"><span data-pt>Política de Privacidade</span><span data-en>Privacy Policy</span></a>
-        <span>© 2026 Slowexe. <span data-pt>Todos os direitos reservados.</span><span data-en>All rights reserved.</span></span>
-        <span><span data-pt>Feito com cuidado em cada pixel.</span><span data-en>Crafted with care, pixel by pixel.</span></span>
-      </div>
-    </div>
+  <footer class="cs-foot">
+    <p><span data-pt>Slowexe · Estúdio de design e estratégia</span><span data-en>Slowexe · Design &amp; strategy studio</span></p>
   </footer>
 
 <script>
-  // header scroll state + hide on scroll down / show on scroll up
-  const header=document.getElementById('header');
-  let lastY=window.scrollY;
-  const onScroll=()=>{
-    const y=window.scrollY;
-    header.classList.toggle('scrolled',y>20);
-    if(y>lastY && y>140){ header.classList.add('hide'); }     // scrolling down
-    else if(y<lastY){ header.classList.remove('hide'); }       // scrolling up
-    lastY=y;
-  };
-  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-
-  // notification promo panel: toggle on bell, close on outside click / Esc
-  (function(){
-    const notif=document.querySelector('.notif'); if(!notif) return;
-    const bell=document.getElementById('bellBtn');
-    bell.addEventListener('click',(e)=>{
-      e.stopPropagation();
-      const open=notif.classList.toggle('open');
-      bell.setAttribute('aria-expanded',open);
-    });
-    document.addEventListener('click',(e)=>{ if(!notif.contains(e.target)) notif.classList.remove('open'); });
-    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') notif.classList.remove('open'); });
-  })();
-
-  // split labels into per-letter stacked copies (Halo-style text roll)
+  // split .roll labels into per-letter stacked copies (Halo-style text roll),
+  // igual ao resto do site: mesmo trecho de tools/build-* / index.html original.
   document.querySelectorAll('.roll').forEach(el=>{
     const text=el.textContent;el.textContent='';
     [...text].forEach((ch,i)=>{
-      const c=ch===' '?' ':ch;
+      const c=ch===' '?String.fromCharCode(160):ch;
       const ltr=document.createElement('span');
       ltr.className='ltr';ltr.style.setProperty('--i',i);
-      const ch2=c===' '?' ':c;
-      const c3=(c===String.fromCharCode(32))?String.fromCharCode(160):c;
-      const a=document.createElement('span');a.className='a';a.textContent=c3;
-      const b=document.createElement('span');b.className='b';b.textContent=c3;b.setAttribute('aria-hidden','true');
+      const a=document.createElement('span');a.className='a';a.textContent=c;
+      const b=document.createElement('span');b.className='b';b.textContent=c;b.setAttribute('aria-hidden','true');
       ltr.appendChild(a);ltr.appendChild(b);el.appendChild(ltr);
     });
   });
 
-  // mega-menu: add a chevron that slides in on hover
-  document.querySelectorAll('.mega-link').forEach(a=>{
-    a.insertAdjacentHTML('beforeend','<svg class="ml-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>');
-  });
-
-  // footer links: whole-text roll (duplicate the line, slide up on hover)
-  document.querySelectorAll('.flink').forEach(a=>{
-    const inner=a.innerHTML;
-    a.innerHTML='<span class="flink-mask"><span class="flink-in"><span class="flink-row">'+inner+'</span><span class="flink-row">'+inner+'</span></span></span>';
-  });
-  // footer social icons: duplicate the icon for the slide-swap (same as the arrow)
-  document.querySelectorAll('.foot-social a').forEach(a=>{
-    const svg=a.querySelector('svg'); if(svg) a.appendChild(svg.cloneNode(true));
-  });
-
-  // language toggle
+  // language toggle: mesma chave de localStorage do resto do site
+  // ('slowexe-lang'), mas o padrao aqui e EN pra quem chega sem preferencia
+  // salva. Quem ja navegou o site em PT continua vendo PT.
   const body=document.body;
+  const emailInput=document.getElementById('csEmail');
   const setLang=(lang)=>{
     body.classList.toggle('lang-en',lang==='en');
     body.classList.toggle('lang-pt',lang==='pt');
     document.documentElement.lang=lang;
     document.querySelectorAll('[data-set-lang]').forEach(b=>b.classList.toggle('active',b.dataset.setLang===lang));
+    if(emailInput) emailInput.placeholder = lang==='pt' ? emailInput.dataset.ptPlaceholder : emailInput.dataset.enPlaceholder;
     try{localStorage.setItem('slowexe-lang',lang)}catch(e){}
-    document.dispatchEvent(new Event('langchange'));
   };
   document.querySelectorAll('[data-set-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.setLang)));
-  try{const saved=localStorage.getItem('slowexe-lang');if(saved)setLang(saved);}catch(e){}
+  try{
+    const saved=localStorage.getItem('slowexe-lang');
+    setLang(saved==='pt' ? 'pt' : 'en');
+  }catch(e){ setLang('en'); }
 
-  // staggered reveal on load + on scroll
-  const reveals=[...document.querySelectorAll('[data-reveal]')];
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{if(e.isIntersecting){
-      const group=e.target.closest('.cards')?[...e.target.closest('.cards').children].indexOf(e.target):0;
-      setTimeout(()=>e.target.classList.add('in'),group*90);
-      io.unobserve(e.target);
-    }});
-  },{threshold:.15});
-  // hero text reveals with quick stagger
-  window.addEventListener('load',()=>{
-    const heroItems=[...document.querySelectorAll('.hero-inner [data-reveal]')];
-    heroItems.forEach((el,i)=>setTimeout(()=>el.classList.add('in'),120+i*120));
-    document.querySelectorAll('.cards [data-reveal], .about [data-reveal], .works [data-reveal], .solutions [data-reveal], .why [data-reveal], .blog [data-reveal]').forEach(el=>io.observe(el));
-  });
+  // reveal on load, com leve stagger (pagina de tela unica, sem scroll)
+  const revealItems=[...document.querySelectorAll('[data-reveal]')];
+  revealItems.forEach((el,i)=>setTimeout(()=>el.classList.add('in'),120+i*110));
 
-  // ===== Our Best Works: build 3D cube letters, play 3D intro once on enter =====
+  // envio do e-mail de "avise-me" via Web3Forms. Chave propria desta
+  // pagina, gerada com hello@slowexe.com (diferente da chave do
+  // contato.html, que entrega em outra caixa).
   (function(){
-    const heads=[...document.querySelectorAll('.works-head')];
-    if(!heads.length) return;
-    heads.forEach(head=>{
-      let idx=0;
-      head.querySelectorAll('.ln').forEach(ln=>{
-        [...ln.childNodes].forEach(node=>{
-          if(node.nodeType!==3) return;
-          const frag=document.createDocumentFragment();
-          [...node.textContent].forEach(ch=>{
-            if(ch===' '){frag.appendChild(document.createTextNode(' '));return;}
-            const cube=document.createElement('span');
-            cube.className='cube3d';cube.style.setProperty('--i',idx++);
-            ['front','top','back','bottom'].forEach(f=>{
-              const face=document.createElement('span');
-              face.className='cf cf-'+f;face.textContent=ch;cube.appendChild(face);
-            });
-            frag.appendChild(cube);
-          });
-          ln.replaceChild(frag,node);
+    const CHAVE='4657cf02-436e-4fec-8b58-db9ae67364c9';
+    const form=document.getElementById('csForm');
+    const msg=document.getElementById('csMsg');
+    const success=document.getElementById('csSuccess');
+    if(!form) return;
+
+    function recado(tipo,pt,en){
+      msg.hidden=false;msg.className='cs-msg '+tipo;
+      msg.innerHTML='<span data-pt>'+pt+'</span><span data-en>'+en+'</span>';
+    }
+
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      const email=(emailInput.value||'').trim();
+      const valido=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+      if(!valido){
+        recado('erro','E-mail inválido. Confira e tente de novo.','Invalid email. Please check and try again.');
+        emailInput.focus();
+        return;
+      }
+      recado('enviando','Enviando…','Sending…');
+      fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({
+          access_key:CHAVE,
+          subject:'Novo cadastro na lista de espera (coming soon)',
+          from_name:'Site Slowexe · Coming soon',
+          email:email
+        })
+      }).then(r=>r.json().then(j=>({ok:r.ok&&j.success===true})))
+        .catch(()=>({ok:false}))
+        .then(({ok})=>{
+          if(ok){
+            msg.hidden=true;
+            form.hidden=true;
+            success.classList.add('show');
+          }else{
+            recado('erro','Não deu pra enviar agora. Tenta de novo em instantes.',"Couldn't send right now. Please try again shortly.");
+          }
         });
-      });
-    });
-    // play once when it enters view; reset when fully out so it replays on return-to-top / refresh
-    const obs=new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting && e.intersectionRatio>=0.35){ e.target.classList.add('in'); }
-        else if(e.intersectionRatio===0){ e.target.classList.remove('in'); }
-      });
-    },{threshold:[0,0.35,1]});
-    heads.forEach(h=>obs.observe(h));
-
-    // fit each title to the viewport width so it stays centered and never overflows
-    //
-    // Em tela estreita a medida NAO e a linha inteira, e sim a maior palavra.
-    // Cabendo tudo numa linha so, "Nossos Trabalhos" caia pra 38px no celular,
-    // menor que o h1 do hero: a secao do display gigante virava a menor da
-    // pagina. Deixando quebrar por palavra, o tipo volta a ser display.
-    // A medicao PRECISA acontecer com nowrap. Com o texto ja quebrado, o
-    // retangulo do Range vira a uniao das linhas e devolve a largura do
-    // container, nao a da palavra: foi isso que deixou "TRABALHOS" cortado
-    // no meio, porque a conta achava que cabia.
-    function larguraDaMaiorPalavra(ln){
-      const antes=ln.style.whiteSpace;
-      ln.style.whiteSpace='nowrap';
-      const grupos=[]; let atual=[];
-      [...ln.childNodes].forEach(n=>{
-        if(n.nodeType===3 && !n.textContent.trim()){ if(atual.length){grupos.push(atual);atual=[];} return; }
-        atual.push(n);
-      });
-      if(atual.length) grupos.push(atual);
-      let maior=0;
-      grupos.forEach(g=>{
-        const r=document.createRange();
-        r.setStartBefore(g[0]); r.setEndAfter(g[g.length-1]);
-        maior=Math.max(maior, r.getBoundingClientRect().width);
-      });
-      ln.style.whiteSpace=antes;
-      return maior;
-    }
-    function fitWorks(){
-      const estreito=window.innerWidth<=760;
-      heads.forEach(h=>{
-        const ln=h.querySelector('.ln'); if(!ln) return;
-        ln.style.whiteSpace='';
-        h.style.fontSize='100px';
-        const w=estreito?larguraDaMaiorPalavra(ln):ln.scrollWidth;
-        if(!w) return;                                       // skip hidden language
-        const box=h.closest('.wrap');
-        const avail=(box?box.clientWidth:window.innerWidth)-48;  // align to content column (24px padding each side)
-        let size=100*avail/w;
-        size=Math.max(28,Math.min(size,170));
-        h.style.fontSize=size.toFixed(1)+'px';
-        // so libera a quebra depois de dimensionado, e sempre entre palavras
-        ln.style.whiteSpace=estreito?'normal':'';
-      });
-    }
-    fitWorks();
-    window.addEventListener('resize',fitWorks);
-    document.addEventListener('langchange',fitWorks);
-    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitWorks);}
-  })();
-
-  // ===== scroll-driven text fill (About + Why) =====
-  (function(){
-    const blocks=[...document.querySelectorAll('.fill-block')];
-    if(!blocks.length) return;
-    const LIGHT=[210,204,193], DARK=[10,11,13];
-    blocks.forEach(block=>{
-      block.querySelectorAll('.fill').forEach(el=>{
-        const tokens=el.textContent.split(/(\s+)/); el.textContent='';
-        tokens.forEach(tok=>{
-          if(tok==='') return;
-          if(/^\s+$/.test(tok)){ el.appendChild(document.createTextNode(tok)); }
-          else{ const s=document.createElement('span'); s.className='fw'; s.textContent=tok; el.appendChild(s); }
-        });
-      });
-    });
-    const wordsFor=(block)=>{const lang=document.documentElement.lang==='en'?'en':'pt';return [...block.querySelectorAll('.fill[data-'+lang+'] .fw')];};
-    const paint=()=>{
-      const vh=window.innerHeight;
-      blocks.forEach(block=>{
-        const words=block.__words||(block.__words=wordsFor(block));
-        const r=block.getBoundingClientRect();
-        let p=(vh*0.85 - r.top)/(r.height + vh*0.45);
-        p=Math.max(0,Math.min(1,p));
-        const N=words.length, W=5;
-        for(let i=0;i<N;i++){
-          let local=(p*(N+W) - i)/W; local=local<0?0:local>1?1:local;
-          words[i].style.color='rgb('+Math.round(LIGHT[0]+(DARK[0]-LIGHT[0])*local)+','+Math.round(LIGHT[1]+(DARK[1]-LIGHT[1])*local)+','+Math.round(LIGHT[2]+(DARK[2]-LIGHT[2])*local)+')';
-        }
-      });
-    };
-    const rebuild=()=>{blocks.forEach(b=>b.__words=wordsFor(b));paint();};
-    let ticking=false;
-    window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(()=>{paint();ticking=false;});}},{passive:true});
-    window.addEventListener('resize',rebuild);
-    document.addEventListener('langchange',rebuild);
-    rebuild();
-  })();
-
-  // ===== Projects: stacking cards on scroll (Scalient style) =====
-  (function(){
-    const stack=document.querySelector('.stack'); if(!stack) return;
-    const data=[
-      {name:'Sabores de Curitiba',date:'Gastronomia',img:'assets/cases/sabores-01.webp',href:'projeto-sabores.html'},
-      {name:'Duo Garage',date:'Automotivo',img:'assets/cases/duo-01.webp',href:'projeto-duo.html'},
-      {name:'Fense Seguradora',date:'Seguros',img:'assets/cases/fense-01.webp',href:'projeto-fense.html'},
-      {name:'Golden Vibes',date:'Semijoias',img:'assets/cases/golden-vibes-01.webp',href:'projeto-golden-vibes.html'}
-    ];
-    const L=()=>document.documentElement.lang==='en'?'en':'pt';
-    const refs=[];
-    data.forEach((p,i)=>{
-      const a=document.createElement('a');a.className='scard';a.href=p.href||'projetos.html';a.style.setProperty('--i',i);
-      a.innerHTML=
-        // a legenda vive DENTRO da midia: entra por cima da imagem no hover
-        '<div class="scard-media">'+
-          '<img src="'+p.img+'" alt="'+p.name+', '+p.date+'" loading="lazy" decoding="async">'+
-          '<div class="scard-foot">'+
-            '<div class="scard-meta"><h3 class="scard-name">'+p.name+'</h3><span class="scard-date">'+p.date+'</span></div>'+
-            '<span class="scard-link"><span class="lk"></span>'+
-              '<span class="arr-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>'+
-            '</span>'+
-          '</div>'+
-        '</div>';
-      stack.appendChild(a);
-      refs.push({lk:a.querySelector('.lk'),dt:a.querySelector('.scard-date'),p:p});
-    });
-    const fill=()=>{const en=L()==='en',t=en?'View Project':'Ver projeto';
-      refs.forEach(r=>{r.lk.textContent=t;if(r.dt)r.dt.textContent=(en&&r.p.dateEn)?r.p.dateEn:r.p.date;});};
-    document.addEventListener('langchange',fill); fill();
-
-    // stacking depth: as the next card rises to cover, the current one lifts + scales down a touch
-    const cards=[...stack.querySelectorAll('.scard')];
-    const update=()=>{
-      const vh=window.innerHeight, top=96;
-      cards.forEach((c,i)=>{
-        const next=cards[i+1];
-        if(!next){c.style.transform='';return;}
-        const nr=next.getBoundingClientRect();
-        let p=(vh*0.9 - nr.top)/(vh*0.9 - top);
-        p=Math.max(0,Math.min(1,p));
-        c.style.transformOrigin='center top';
-        c.style.transform='translateY('+(-24*p).toFixed(1)+'px) scale('+(1-0.06*p).toFixed(3)+')';
-      });
-    };
-    let t=false;
-    window.addEventListener('scroll',()=>{if(!t){t=true;requestAnimationFrame(()=>{update();t=false;});}},{passive:true});
-    window.addEventListener('resize',update); update();
-  })();
-
-  // ===== feedback: position stacking cards below the sticky title =====
-  (function(){
-    const sec=document.querySelector('.feedback'); if(!sec) return;
-    const title=sec.querySelector('.fb-title'), stack=sec.querySelector('.fb-stack');
-    const fit=()=>{
-      const stickTop=parseInt(getComputedStyle(title).top)||88;
-      stack.style.setProperty('--cardtop',(stickTop + title.offsetHeight + 18)+'px');
-    };
-    fit();
-    window.addEventListener('resize',fit);
-    document.addEventListener('langchange',fit);
-    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
-  })();
-
-  // ===== infinite logo marquee (duplicate track for a seamless loop) =====
-  (function(){
-    document.querySelectorAll('.sol-track,.wc-track,.ribbon-track').forEach(track=>{
-      track.insertAdjacentHTML('beforeend', track.innerHTML);
     });
   })();
-</script>
-<script>
-  (function(){
-    var cards=[].slice.call(document.querySelectorAll('.cards .card'));
-    var fine=window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-    if(fine){cards.forEach(function(card){
-      card.addEventListener('mousemove',function(e){var r=card.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(760px) rotateX('+(-py*7).toFixed(2)+'deg) rotateY('+(px*9).toFixed(2)+'deg) translateY(-8px)';});
-      card.addEventListener('mouseleave',function(){card.style.transform='';});
-    });}
-    var nums=[].slice.call(document.querySelectorAll('.cards .num[data-count]'));
-    function countUp(el){var target=+el.getAttribute('data-count'),suf=el.getAttribute('data-suffix')||'',start=null,dur=1300;function step(t){if(!start)start=t;var p=Math.min((t-start)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*target)+suf;if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
-    if('IntersectionObserver' in window && nums.length){
-      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);io.unobserve(e.target);}});},{threshold:.4});
-      nums.forEach(function(n){n.textContent='0'+(n.getAttribute('data-suffix')||'');io.observe(n);});
-    }
-  })();
-</script>
-<script id="deck-js">
-/* ============ HERO: BARALHO DE PROJETOS ============ */
-(function(){
-  var deck=document.getElementById('deckTrack');
-  if(!deck) return;
-  var cards=[].slice.call(deck.querySelectorAll('.deck-card'));
-  if(cards.length<3) return;
-
-  // .9s de movimento + .9s de descanso. O card precisa parar pra ser lido:
-  // com o intervalo colado na duracao a animacao nunca assenta.
-  var INTERVALO=1800;
-
-  // Cada posicao e a distancia do centro: escala e deslocamento X, ja no
-  // valor final que aparece na tela.
-  //
-  // Antes isso era translate3d(x,0,z) e a perspectiva do container encolhia
-  // os cards sozinha. Funcionava no desktop e QUEBRAVA no celular de verdade:
-  // o Safari do iOS achata transform-style:preserve-3d quando um ancestral
-  // tem overflow diferente de visible, e o .hero tem overflow:hidden. Achatado,
-  // o eixo Z e ignorado e todos os cards saem do mesmo tamanho.
-  //
-  // Os numeros abaixo sao exatamente o que a perspectiva de 1500px produzia
-  // (1500/(1500+z)), entao o desenho e o mesmo, sem depender de 3D:
-  //   z=-520 -> escala .743      z=-940 -> escala .615
-  // O X e razao da largura do card, pra o leque encolher junto com a tela.
-  var POS=[
-    {rx:0,      s:1,    o:1},
-    {rx:0.4602, s:0.743, o:1},
-    {rx:0.7624, s:0.615, o:1}
-  ];
-
-  var atual=0, timer=null, larguraCard=0;
-  var n=cards.length;
-
-  function posicionar(){
-    // offsetWidth, nao getBoundingClientRect: o rect ja vem com a escala
-    // aplicada, e aqui precisamos da largura de layout
-    larguraCard=cards[0].offsetWidth || 262;
-    for(var i=0;i<n;i++){
-      var d=((i-atual)%n+n)%n;           // 0..n-1 a partir do card da frente
-      var off=d>n/2 ? d-n : d;           // -metade .. +metade
-      var k=Math.min(Math.abs(off),POS.length-1);
-      var p=POS[k];
-      var lado=off<0?-1:1;
-      var c=cards[i];
-      c.style.transform='translateX('+(lado*p.rx*larguraCard).toFixed(1)+'px) scale('+p.s+')';
-      c.style.opacity=p.o;
-      c.style.zIndex=String(50-Math.abs(off));
-      c.classList.toggle('is-front',off===0);
-    }
-  }
-  function avancar(){ atual=(atual+1)%n; posicionar(); }
-  function tocar(){ if(!timer) timer=setInterval(avancar,INTERVALO); }
-  function parar(){ if(timer){ clearInterval(timer); timer=null; } }
-
-  posicionar();
-
-  var reduz=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
-  if(!(reduz && reduz.matches)) tocar();
-
-  // SEM pausa no hover. O baralho ocupa ~65% da tela (1265x474px), entao o
-  // mouse parado em qualquer lugar do meio da pagina congelava a rotacao e
-  // parecia que o carrossel tinha quebrado. Como os cards nao sao mais links,
-  // nao ha nada pra "segurar parado" pra clicar.
-
-  // nao gasta bateria rodando em aba escondida
-  document.addEventListener('visibilitychange',function(){
-    document.hidden?parar():tocar();
-  });
-  // o card muda de largura com a viewport: reposiciona sem animar o salto
-  var reTimer=null;
-  window.addEventListener('resize',function(){
-    clearTimeout(reTimer);
-    reTimer=setTimeout(posicionar,120);
-  });
-})();
-</script>
-<script id="mnav-js">
-/* ============ MENU MOBILE ============ */
-(function(){
-  var btn=document.querySelector('.menu-toggle');
-  var panel=document.getElementById('mnav');
-  var back=document.getElementById('mnavBackdrop');
-  if(!btn||!panel||!back)return;
-  var closeBtn=document.getElementById('mnavClose');
-  var lastFocus=null,timer=null;
-  panel.id='mnav';
-  btn.setAttribute('aria-controls','mnav');
-  btn.setAttribute('aria-expanded','false');
-  function open(){
-    clearTimeout(timer);
-    lastFocus=document.activeElement;
-    panel.hidden=false;back.hidden=false;
-    void panel.offsetWidth;
-    panel.classList.add('on');back.classList.add('on');
-    document.body.classList.add('mnav-open');
-    btn.setAttribute('aria-expanded','true');
-    if(closeBtn)closeBtn.focus();
-  }
-  function close(){
-    panel.classList.remove('on');back.classList.remove('on');
-    document.body.classList.remove('mnav-open');
-    btn.setAttribute('aria-expanded','false');
-    clearTimeout(timer);
-    timer=setTimeout(function(){panel.hidden=true;back.hidden=true;},500);
-    if(lastFocus&&lastFocus.focus)lastFocus.focus();
-  }
-  btn.addEventListener('click',function(){panel.classList.contains('on')?close():open();});
-  if(closeBtn)closeBtn.addEventListener('click',close);
-  back.addEventListener('click',close);
-  panel.addEventListener('click',function(e){if(e.target.closest('a'))close();});
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'&&panel.classList.contains('on'))close();
-  });
-  panel.addEventListener('keydown',function(e){
-    if(e.key!=='Tab')return;
-    var f=panel.querySelectorAll('a[href],button:not([disabled])');
-    if(!f.length)return;
-    var first=f[0],last=f[f.length-1];
-    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
-    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
-  });
-  window.addEventListener('resize',function(){
-    if(window.innerWidth>760&&panel.classList.contains('on'))close();
-  });
-})();
 </script>
 </body>
 </html>
